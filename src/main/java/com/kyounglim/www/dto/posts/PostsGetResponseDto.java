@@ -1,0 +1,44 @@
+package com.kyounglim.www.dto.posts;
+
+import com.kyounglim.www.domain.posts.Posts;
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
+/**
+ * Created by dnjstjr0507@gmail.com on 2019. 5. 6.
+ * Github : http://github.com/dnjstjr0507
+ */
+
+@Getter
+public class PostsGetResponseDto {
+    private Long id;
+    private String photo;
+    private String item;
+    private String material;
+    private String stock;
+    private String contents;
+    private String modifiedDate;
+
+    public PostsGetResponseDto(Posts entity) {
+        id = entity.getId();
+        photo = entity.getPhoto();
+        item = entity.getItem();
+        material = entity.getMaterial();
+        stock = entity.getStock();
+        contents = entity.getContents();
+        modifiedDate = toStringDateTime(entity.getModifiedDate());
+    }
+
+    /**
+     * Java 8 버전
+     */
+    private String toStringDateTime(LocalDateTime localDateTime){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return Optional.ofNullable(localDateTime)
+                .map(formatter::format)
+                .orElse("");
+    }
+}
