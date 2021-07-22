@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -24,15 +25,15 @@ public class PostsService {
     }
 
     @Transactional
-    public Long put(PostsGetResponseDto dto){
-        Posts dto2 = postsRepository.getById(dto.getId());
-
+    public Long put(PostSaveRequestDto dto, Long id){
+        PostsGetResponseDto dto2 = postsRepository.findById(id);
+        dto2 =
         return ;
     }
 
     @Transactional
-    public Long delete(){
-        return postsRepository.delete();
+    public Long delete(PostSaveRequestDto dto){
+        return postsRepository.delete(dto.getId());
     }
 
     @Transactional(readOnly = true)

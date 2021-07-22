@@ -6,6 +6,7 @@ import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,14 +21,19 @@ public class WebRestController {
         return "HelloWorld";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/erp/save")
     public Long savePost(@RequestBody PostSaveRequestDto dto){
         return postsService.save(dto);
     }
 
-    @PutMapping("/put")
-    public Long putPost(@RequestBody PostsGetResponseDto dto) {
-        return postsService.put(dto);
+    @PutMapping("/erp/{id}/put")
+    public Long putPost(@RequestBody PostSaveRequestDto dto, @PathVariable("id") Long id, BindingResult result) {
+        if (result.hasErrors()){
+            return ;
+        }else {
+            dto.setId(id);
+            this.postsService.put(dto);
+        }
     }
 
     @DeleteMapping("/delete")
