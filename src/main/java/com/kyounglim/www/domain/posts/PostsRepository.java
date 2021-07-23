@@ -17,4 +17,5 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "FROM Posts p " +
             "ORDER BY p.id DESC")
     Stream<Posts> findAllDesc();
+
 }

@@ -17,24 +17,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class PostsService {
+
     private PostsRepository postsRepository;
-
-    @Transactional
-    public Long save(PostSaveRequestDto dto){
-        return postsRepository.save(dto.toEntity()).getId();
-    }
-
-    @Transactional
-    public Long put(PostSaveRequestDto dto, Long id){
-        PostsGetResponseDto dto2 = postsRepository.findById(id);
-        dto2 =
-        return ;
-    }
-
-    @Transactional
-    public Long delete(PostSaveRequestDto dto){
-        return postsRepository.delete(dto.getId());
-    }
 
     @Transactional(readOnly = true)
     public List<PostsGetResponseDto> findAllDesc() {
@@ -42,4 +26,26 @@ public class PostsService {
                 .map(PostsGetResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public PostsGetResponseDto findbyid(Long id){
+        Posts post = postsRepository.getById(id);
+        PostsGetResponseDto postget = new PostsGetResponseDto(post);
+        return postget;
+    }
+
+    @Transactional
+    public Long save(PostSaveRequestDto dto){
+        return postsRepository.save(dto.toEntity()).getId();
+    }
+
+    @Transactional
+    public Long put(PostSaveRequestDto dto) { return postsRepository.save(dto.toEntity()).getId();
+    }
+
+    /*@Transactional
+    public Long delete(Long id){
+        return postsRepository.delete(id);
+    }*/
+
 }

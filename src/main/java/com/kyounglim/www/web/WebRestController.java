@@ -1,13 +1,14 @@
 package com.kyounglim.www.web;
 
-import com.kyounglim.erp.dto.posts.PostSaveRequestDto;
-import com.kyounglim.erp.service.PostsService;
+import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -21,23 +22,29 @@ public class WebRestController {
         return "HelloWorld";
     }
 
-    @PostMapping("/erp/save")
+    // 테스트용 post list
+    @GetMapping("/get")
+    public List<PostsGetResponseDto> list(){
+        return postsService.findAllDesc();
+    }
+
+    @GetMapping ("/getpost/{id}")
+    public PostsGetResponseDto get(@PathVariable("id") Long id){
+        return postsService.findbyid(id);
+    }
+
+    @PostMapping("/save")
     public Long savePost(@RequestBody PostSaveRequestDto dto){
         return postsService.save(dto);
     }
 
-    @PutMapping("/erp/{id}/put")
-    public Long putPost(@RequestBody PostSaveRequestDto dto, @PathVariable("id") Long id, BindingResult result) {
-        if (result.hasErrors()){
-            return ;
-        }else {
-            dto.setId(id);
-            this.postsService.put(dto);
-        }
+    @PutMapping("/{id}/edit")
+    public Long putPost(@RequestBody PostSaveRequestDto dto) {
+            return postsService.put(dto);
     }
 
-    @DeleteMapping("/delete")
-    public Long deletePost(@RequestBody){
-
-    }
+    /*@DeleteMapping("/{id}/del")
+    public Long deletePost(@PathVariable Long id){
+        return postsService.delete(id);
+    }*/
 }
