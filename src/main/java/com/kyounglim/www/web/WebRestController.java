@@ -1,6 +1,5 @@
 package com.kyounglim.www.web;
 
-import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
@@ -8,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -43,8 +41,8 @@ public class WebRestController {
             return postsService.put(dto);
     }
 
-    /*@DeleteMapping("/{id}/del")
-    public Long deletePost(@PathVariable Long id){
-        return postsService.delete(id);
-    }*/
+    @DeleteMapping("/{id}/del")
+    public void deletePost(@PathVariable("id") Long id){
+        postsService.delete(id);
+    }
 }

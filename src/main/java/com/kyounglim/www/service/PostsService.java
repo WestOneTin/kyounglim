@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class PostsService {
 
-    private PostsRepository postsRepository;
+    private final PostsRepository postsRepository;
 
     @Transactional(readOnly = true)
     public List<PostsGetResponseDto> findAllDesc() {
@@ -43,9 +43,8 @@ public class PostsService {
     public Long put(PostSaveRequestDto dto) { return postsRepository.save(dto.toEntity()).getId();
     }
 
-    /*@Transactional
-    public Long delete(Long id){
-        return postsRepository.delete(id);
-    }*/
-
+    @Transactional
+    public void delete(Long id){
+        postsRepository.deleteById(id);
+    }
 }
