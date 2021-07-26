@@ -45,6 +45,9 @@ public class PostsService {
 
     @Transactional
     public void delete(Long id){
-        postsRepository.deleteById(id);
+        Optional<Posts> get_post = postsRepository.findById(id);
+        get_post.ifPresent(post ->{
+            postsRepository.deleteById(post.getId());
+        });
     }
 }
