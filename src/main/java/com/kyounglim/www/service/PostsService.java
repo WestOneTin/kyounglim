@@ -28,10 +28,10 @@ public class PostsService {
     }
 
     @Transactional
-    public PostsGetResponseDto findbyid(Long id){
+    public PostsGetResponseDto getById(Long id){
         Posts post = postsRepository.getById(id);
-        PostsGetResponseDto postget = new PostsGetResponseDto(post);
-        return postget;
+        PostsGetResponseDto dto = new PostsGetResponseDto(post);
+        return dto;
     }
 
     @Transactional
@@ -40,14 +40,27 @@ public class PostsService {
     }
 
     @Transactional
-    public Long put(PostSaveRequestDto dto) { return postsRepository.save(dto.toEntity()).getId();
+    public Optional<Posts> put(Long id, PostSaveRequestDto dto) {
+        Optional<Posts> posts = postsRepository.findById(id);
+        System.out.println("ID값 : " + posts.get().getId());
+        System.out.println("내용 : " + posts.get().getContent());
+        posts.ifPresent(post -> {
+            post.builder()
+                    .photo("수정")
+                    .item("수정")
+                    .material("수정")
+                    .stock("수정")
+                    .content("수정")
+                    .build();
+            postsRepository.save(post);
+        });
+        return posts;
     }
-
-    @Transactional
-    public void delete(Long id){
+        public void delete(Long id){
         Optional<Posts> get_post = postsRepository.findById(id);
         get_post.ifPresent(post ->{
             postsRepository.deleteById(post.getId());
         });
     }
 }
+

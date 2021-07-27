@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Optional;
+
 /**
  * Created by dnjstjr0507@gmail.com on 2019. 5. 6.
  * Github : http://github.com/dnjstjr0507
@@ -28,7 +30,7 @@ public class PostSaveRequestDto {
                 .item(item)
                 .material(material)
                 .stock(stock)
-                .contents(content)
+                .content(content)
                 .build();
     }
 }

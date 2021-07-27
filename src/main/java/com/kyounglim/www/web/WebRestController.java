@@ -1,5 +1,6 @@
 package com.kyounglim.www.web;
 
+import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -28,7 +30,7 @@ public class WebRestController {
 
     @GetMapping ("/getpost/{id}")
     public PostsGetResponseDto get(@PathVariable("id") Long id){
-        return postsService.findbyid(id);
+        return postsService.getById(id);
     }
 
     @PostMapping("/save")
@@ -37,8 +39,8 @@ public class WebRestController {
     }
 
     @PutMapping("/{id}/edit")
-    public Long putPost(@RequestBody PostSaveRequestDto dto) {
-            return postsService.put(dto);
+    public Optional<Posts> putPost(@PathVariable("id") Long id , @RequestBody PostSaveRequestDto dto) {
+           return postsService.put(id, dto);
     }
 
     @DeleteMapping("/{id}/del")

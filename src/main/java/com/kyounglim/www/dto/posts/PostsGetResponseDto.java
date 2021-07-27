@@ -13,13 +13,13 @@ import java.util.Optional;
  */
 
 @Getter
-public class PostsGetResponseDto {
+public class PostsGetResponseDto{
     private Long id;
     private String photo;
     private String item;
     private String material;
     private String stock;
-    private String contents;
+    private String content;
     private String modifiedDate;
 
     public PostsGetResponseDto(Posts entity) {
@@ -28,7 +28,7 @@ public class PostsGetResponseDto {
         item = entity.getItem();
         material = entity.getMaterial();
         stock = entity.getStock();
-        contents = entity.getContents();
+        content = entity.getContent();
         modifiedDate = toStringDateTime(entity.getModifiedDate());
     }
 

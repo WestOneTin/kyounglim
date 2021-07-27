@@ -1,5 +1,7 @@
 package com.kyounglim.www.domain.posts;
 
+import com.kyounglim.www.dto.posts.PostSaveRequestDto;
+import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,7 +20,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "ORDER BY p.id DESC")
     Stream<Posts> findAllDesc();
 
-    Long save(Long id);
-
     void deleteById(Long id);
+
 }

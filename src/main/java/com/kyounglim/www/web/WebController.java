@@ -32,7 +32,7 @@ public class WebController {
 
     @GetMapping("/post")
     public String post(Long id, Model model){
-        model.addAttribute("post", postsService.findbyid(id));
+        model.addAttribute("post", postsService.getById(id));
         return "post";
     }
 

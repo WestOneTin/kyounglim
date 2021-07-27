@@ -1,10 +1,7 @@
 package com.kyounglim.www.domain.posts;
 
 import com.kyounglim.www.domain.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,15 +31,16 @@ public class Posts extends BaseTimeEntity {
     private String stock;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String contents;
+    private String content;
+
 
     @Builder
-    public Posts(Long id, String photo, String item, String material, String stock, String contents) {
+    public Posts(Long id, String photo, String item, String material, String stock, String content) {
         this.id = id;
         this.photo = photo;
         this.item = item;
         this.material = material;
         this.stock = stock;
-        this.contents = contents;
+        this.content = content;
     }
 }
