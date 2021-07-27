@@ -33,6 +33,13 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    public void update(String photo, String item, String material, String stock, String content) {
+        this.photo = photo;
+        this.item = item;
+        this.material = material;
+        this.stock = stock;
+        this.content = content;
+    }
 
     @Builder
     public Posts(Long id, String photo, String item, String material, String stock, String content) {

@@ -39,7 +39,7 @@ public class WebRestController {
     }
 
     @PutMapping("/{id}/edit")
-    public Optional<Posts> putPost(@PathVariable("id") Long id , @RequestBody PostSaveRequestDto dto) {
+    public Posts putPost(@PathVariable("id") Long id , @RequestBody PostSaveRequestDto dto) {
            return postsService.put(id, dto);
     }
 

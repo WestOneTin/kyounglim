@@ -3,6 +3,7 @@ package com.kyounglim.www.domain.posts;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.stream.Stream;

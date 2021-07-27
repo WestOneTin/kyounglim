@@ -40,21 +40,26 @@ public class PostsService {
     }
 
     @Transactional
-    public Optional<Posts> put(Long id, PostSaveRequestDto dto) {
-        Optional<Posts> posts = postsRepository.findById(id);
+    public Posts put(Long id, PostSaveRequestDto dto) {
+        Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        post.update(dto.getPhoto(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
+
+       /* Optional<Posts> posts = postsRepository.findById(id);
         System.out.println("ID값 : " + posts.get().getId());
         System.out.println("내용 : " + posts.get().getContent());
         posts.ifPresent(post -> {
-            post.builder()
-                    .photo("수정")
-                    .item("수정")
-                    .material("수정")
-                    .stock("수정")
-                    .content("수정")
-                    .build();
-            postsRepository.save(post);
-        });
-        return posts;
+            postsRepository.save(
+                    post.builder()
+                        .photo(dto.toEntity().getPhoto())
+                        .item(dto.toEntity().getItem())
+                        .material(dto.toEntity().getMaterial())
+                        .stock(dto.toEntity().getStock())
+                        .content(dto.toEntity().getContent())
+                        .build()
+            );
+        });*/
+        return post;
     }
         public void delete(Long id){
         Optional<Posts> get_post = postsRepository.findById(id);
