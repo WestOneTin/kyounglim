@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Optional;
-
 /**
  * Created by dnjstjr0507@gmail.com on 2019. 5. 6.
  * Github : http://github.com/dnjstjr0507
@@ -21,7 +19,7 @@ public class PostSaveRequestDto {
     private String photo;
     private String item;
     private String material;
-    private String stock;
+    private int stock;
     private String content;
 
     public Posts toEntity(){

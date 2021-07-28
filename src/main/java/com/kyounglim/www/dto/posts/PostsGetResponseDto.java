@@ -18,7 +18,7 @@ public class PostsGetResponseDto{
     private String photo;
     private String item;
     private String material;
-    private String stock;
+    private int stock;
     private String content;
     private String modifiedDate;
 

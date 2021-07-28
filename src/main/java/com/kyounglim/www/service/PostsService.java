@@ -42,26 +42,20 @@ public class PostsService {
     @Transactional
     public Posts put(Long id, PostSaveRequestDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-
-        post.update(dto.getPhoto(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
-
-       /* Optional<Posts> posts = postsRepository.findById(id);
-        System.out.println("ID값 : " + posts.get().getId());
-        System.out.println("내용 : " + posts.get().getContent());
-        posts.ifPresent(post -> {
-            postsRepository.save(
-                    post.builder()
-                        .photo(dto.toEntity().getPhoto())
-                        .item(dto.toEntity().getItem())
-                        .material(dto.toEntity().getMaterial())
-                        .stock(dto.toEntity().getStock())
-                        .content(dto.toEntity().getContent())
-                        .build()
-            );
-        });*/
+        post.update(dto.getPhoto(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); //JPA영속성 컨텍스트로 인해 생성자로 주입하면 자동으로 repository.saver가 작동되며 update쿼리를 실행
         return post;
     }
-        public void delete(Long id){
+
+    //stock만 수정하기
+    @Transactional
+    public Posts put_stock(Long id, int stock){
+        Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        postsRepository.put_stock(id,stock);
+        return post;
+    }
+
+    @Transactional
+    public void delete(Long id){
         Optional<Posts> get_post = postsRepository.findById(id);
         get_post.ifPresent(post ->{
             postsRepository.deleteById(post.getId());

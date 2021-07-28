@@ -1,15 +1,10 @@
 package com.kyounglim.www.web;
 
-import com.kyounglim.www.domain.posts.Posts;
-import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.Map;
-import java.util.Optional;
 
 
 @Controller

@@ -2,7 +2,6 @@ package com.kyounglim.www.domain;
 
 import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.domain.posts.PostsRepository;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith({})
 @SpringBootTest
@@ -33,7 +30,7 @@ public class PostsRepositoryTest {
                 .photo("test")
                 .item("test")
                 .material("test")
-                .stock("test")
+                .stock(1)
                 .content("test")
                 .build());
 
@@ -52,7 +49,7 @@ public class PostsRepositoryTest {
                 .photo("test")
                 .item("test")
                 .material("test")
-                .stock("test")
+                .stock(1)
                 .content("test")
                 .build());
 
@@ -64,7 +61,7 @@ public class PostsRepositoryTest {
         assertThat(posts.getPhoto(), is("test"));
         assertThat(posts.getItem(), is("test"));
         assertThat(posts.getMaterial(), is("test"));
-        assertThat(posts.getStock(), is("test"));
+        assertThat(posts.getStock(), is(1));
         assertThat(posts.getContent(), is("test"));
 
         Posts posts1 = postsRepository.getById(0L);
@@ -73,7 +70,7 @@ public class PostsRepositoryTest {
                     .photo("수정")
                     .item("수정")
                     .material("수정")
-                    .stock("수정")
+                    .stock(1)
                     .content("수정")
                     .build()
         );
@@ -85,7 +82,7 @@ public class PostsRepositoryTest {
         assertThat(posts2.getPhoto(), is("수정"));
         assertThat(posts2.getItem(), is("수정"));
         assertThat(posts2.getMaterial(), is("수정"));
-        assertThat(posts2.getStock(), is("수정"));
+        assertThat(posts2.getStock(), is(1));
         assertThat(posts2.getContent(), is("수정"));
     }
 }

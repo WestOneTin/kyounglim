@@ -1,10 +1,8 @@
 package com.kyounglim.www.domain.posts;
 
-import com.kyounglim.www.dto.posts.PostSaveRequestDto;
-import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.stream.Stream;
 
@@ -20,6 +18,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "FROM Posts p " +
             "ORDER BY p.id DESC")
     Stream<Posts> findAllDesc();
+
+    @Query("UPDATE Posts p SET p.stock = :stock WHERE p.id = :id")
+    void put_stock(@Param("id") Long id, @Param("stock") int stock);
 
     void deleteById(Long id);
 

@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -38,9 +37,14 @@ public class WebRestController {
         return postsService.save(dto);
     }
 
-    @PutMapping("/{id}/edit")
+    @PutMapping("/{id}/put")
     public Posts putPost(@PathVariable("id") Long id , @RequestBody PostSaveRequestDto dto) {
            return postsService.put(id, dto);
+    }
+
+    @PutMapping("/{id}/put-stock")
+    public Posts stock_edit(@PathVariable("id") Long id, @RequestBody int stock){
+        return postsService.put_stock(id, stock);
     }
 
     @DeleteMapping("/{id}/del")
