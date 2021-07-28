@@ -19,9 +19,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "ORDER BY p.id DESC")
     Stream<Posts> findAllDesc();
 
-    @Query("UPDATE Posts p SET p.stock = :stock WHERE p.id = :id")
-    void put_stock(@Param("id") Long id, @Param("stock") int stock);
-
     void deleteById(Long id);
 
 }

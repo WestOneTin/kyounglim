@@ -43,8 +43,8 @@ public class WebRestController {
     }
 
     @PutMapping("/{id}/put-stock")
-    public Posts stock_edit(@PathVariable("id") Long id, @RequestBody int stock){
-        return postsService.put_stock(id, stock);
+    public void stock_edit(@PathVariable("id") Long id, @RequestBody int stock){
+        postsService.putStock(id, stock);
     }
 
     @DeleteMapping("/{id}/del")

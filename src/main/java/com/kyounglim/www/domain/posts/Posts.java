@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +14,9 @@ import javax.persistence.Id;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본생성자 자동추가 // (기본생성자의 접근권한을 protected로 제한)
-@Getter
+@Getter //Entity 에는 Getter 만 생성 Setter 대신 생성자 or Builder로 주입
 @Entity // Table과 링크될 클래스임을 나타냄
+@DynamicUpdate // 변경 필드만 반영 될 수 있도록 해줌
 public class Posts extends BaseTimeEntity {
 
     @Id // 해당테이블의 PK 필드를 나타냄
@@ -44,7 +46,7 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void update_stock(int stock){
+    public void putStock(int stock){
         this.stock = stock;
     }
 

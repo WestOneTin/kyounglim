@@ -42,16 +42,15 @@ public class PostsService {
     @Transactional
     public Posts put(Long id, PostSaveRequestDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        post.update(dto.getPhoto(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); //JPA영속성 컨텍스트로 인해 생성자로 주입하면 자동으로 repository.saver가 작동되며 update쿼리를 실행
+        post.update(dto.getPhoto(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
         return post;
     }
 
-    //stock만 수정하기
+
     @Transactional
-    public Posts put_stock(Long id, int stock){
-        Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        postsRepository.put_stock(id,stock);
-        return post;
+    public void putStock(Long id, int stock){
+        Posts post = postsRepository.getById(id);
+        post.putStock(stock);
     }
 
     @Transactional
