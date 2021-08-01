@@ -12,11 +12,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor // 기본 생성자  생성
 public class PostSaveRequestDto {
 
     private Long id;
-    private String photo;
+    private String file;
     private String item;
     private String material;
     private int stock;
