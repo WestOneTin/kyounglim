@@ -15,7 +15,7 @@ import java.util.Optional;
 @Getter
 public class PostsGetResponseDto{
     private Long id;
-    private String photo;
+    private Long fileId;
     private String item;
     private String material;
     private int stock;
@@ -24,7 +24,7 @@ public class PostsGetResponseDto{
 
     public PostsGetResponseDto(Posts entity) {
         id = entity.getId();
-        photo = entity.getPhoto();
+        fileId = entity.getFileId();
         item = entity.getItem();
         material = entity.getMaterial();
         stock = entity.getStock();

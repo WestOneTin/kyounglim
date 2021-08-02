@@ -24,7 +24,7 @@ public class Posts extends BaseTimeEntity {
     private Long id;
 
     @Column
-    private String photo;
+    private Long fileId;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String item;
@@ -38,8 +38,10 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    public void update(String photo, String item, String material, int stock, String content) {
-        this.photo = photo;
+
+
+    public void update(Long fileId, String item, String material, int stock, String content) {
+        this.fileId = fileId;
         this.item = item;
         this.material = material;
         this.stock = stock;
@@ -51,9 +53,9 @@ public class Posts extends BaseTimeEntity {
     }
 
     @Builder
-    public Posts(Long id, String photo, String item, String material, int stock, String content) {
+    public Posts(Long id, Long fileId, String item, String material, int stock, String content) {
         this.id = id;
-        this.photo = photo;
+        this.fileId = fileId;
         this.item = item;
         this.material = material;
         this.stock = stock;

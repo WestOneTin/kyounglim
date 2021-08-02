@@ -19,7 +19,7 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "ORDER BY p.id DESC")
     //SELECT
     //      p.id as id,
-    //      p.photo as photo,
+    //      p.fileId as fileId,
     //      p.item as item,
     //      p.material as material,
     //      p.stock as stock,
