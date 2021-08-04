@@ -63,88 +63,66 @@
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">재고목록 <span class="sr-only">(current)</span></a></li>
           </ul>
-          <!--
-            <li><a href="#">Re0ports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
-          -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">재고목록</h1>
 
           <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="img/main_img.jpg" class="img-responsive img-rounded center-block" >
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+            <div class="col-xs-12 placeholder">
+              <button type="button" class="btn btn-primary pull-right">작성</button>
             </div>
           </div>
-
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-hover table-condensed text-center">
-              <thead>
-                <tr>
-                  <th class="text-center">번호</th>
-                  <th class="text-center">사진</th>
-                  <th class="text-center">모델명</th>
-                  <th class="text-center">소재</th>
-                  <th class="text-center">재고량</th>
-                  <th class="text-center">비고</th>
-                  <th class="text-center">시간</th>
-                  <th class="text-center">수정/삭제</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each posts}}
-                <tr>
-                  <td style="vertical-align: middle;">{{id}}</td>
-                  <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
-                  <td style="vertical-align: middle;">{{item}}</td>
-                  <td style="vertical-align: middle;">{{material}}</td>
-                  <td style="vertical-align: middle;">{{stock}}</td>
-                  <td style="vertical-align: middle;">{{content}}</td>
-                  <td style="vertical-align: middle;">{{modifiedDate}}</td>
-                  <td style="vertical-align: middle;"><button type="button" class="btn btn-warning">수정</button><button type="button" class="btn btn-danger">삭제</button></td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-              <div class="col-xs-12 placeholder text-center">
-                <nav>
-                  <ul class="pagination">
-                    <li>
-                      <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                      <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+              <div class="table-responsive">
+                <table class="table table-hover table-condensed text-center">
+                  <thead>
+                    <tr>
+                      <th class="text-center">번호</th>
+                      <th class="text-center">사진</th>
+                      <th class="text-center">모델명</th>
+                      <th class="text-center">소재</th>
+                      <th class="text-center">재고량</th>
+                      <th class="text-center">비고</th>
+                      <th class="text-center">시간</th>
+                      <th class="text-center">수정/삭제</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each posts}}
+                    <tr>
+                      <td style="vertical-align: middle;">{{id}}</td>
+                      <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
+                      <td style="vertical-align: middle;">{{item}}</td>
+                      <td style="vertical-align: middle;">{{material}}</td>
+                      <td style="vertical-align: middle;">{{stock}}</td>
+                      <td style="vertical-align: middle;">{{content}}</td>
+                      <td style="vertical-align: middle;">{{modifiedDate}}</td>
+                      <td style="vertical-align: middle;"><button type="button" class="btn btn-warning">수정</button><button type="button" class="btn btn-danger">삭제</button></td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+                  <div class="col-xs-12 placeholder text-center">
+                    <nav>
+                      <ul class="pagination">
+                        <li>
+                          <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                          <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
