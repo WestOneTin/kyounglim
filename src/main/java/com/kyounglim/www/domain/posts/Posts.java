@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본생성자 자동추가 // (기본생성자의 접근권한을 protected로 제한)
@@ -20,11 +17,11 @@ import javax.persistence.Id;
 public class Posts extends BaseTimeEntity {
 
     @Id // 해당테이블의 PK 필드를 나타냄
-    @GeneratedValue // PK 의 생성 규칙을 나타냄 기본값은 AUTO, MySQL의 auto_increment와 같이 자동증가 하는 정수형 값이 된다.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // PK 의 생성 규칙을 나타냄 기본값은 AUTO, MySQL의 auto_increment와 같이 자동증가 하는 정수형 값이 된다.
     private Long id;
 
     @Column
-    private Long fileId;
+    private Long fileid;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String item;
@@ -39,9 +36,8 @@ public class Posts extends BaseTimeEntity {
     private String content;
 
 
-
-    public void update(Long fileId, String item, String material, int stock, String content) {
-        this.fileId = fileId;
+    public void update(Long fileid, String item, String material, int stock, String content) {
+        this.fileid = fileid;
         this.item = item;
         this.material = material;
         this.stock = stock;
@@ -53,9 +49,9 @@ public class Posts extends BaseTimeEntity {
     }
 
     @Builder
-    public Posts(Long id, Long fileId, String item, String material, int stock, String content) {
+    public Posts(Long id, Long fileid, String item, String material, int stock, String content) {
         this.id = id;
-        this.fileId = fileId;
+        this.fileid = fileid;
         this.item = item;
         this.material = material;
         this.stock = stock;

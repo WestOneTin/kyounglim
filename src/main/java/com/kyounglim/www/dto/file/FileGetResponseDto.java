@@ -1,7 +1,6 @@
 package com.kyounglim.www.dto.file;
 
-import com.kyounglim.www.domain.files.Files;
-import lombok.Builder;
+import com.kyounglim.www.domain.files.File;
 import lombok.Getter;
 
 @Getter
@@ -11,21 +10,10 @@ public class FileGetResponseDto {
     private String filename;
     private String filePath;
 
-    public Files toEntity(){
-        Files build = Files.builder()
-                .id(id)
-                .origFilename(origFilename)
-                .filename(filename)
-                .filePath(filePath)
-                .build();
-        return build;
-    }
-
-    @Builder
-    public FileGetResponseDto(Long id, String origFilename, String filename, String filePath) {
-        this.id = id;
-        this.origFilename = origFilename;
-        this.filename = filename;
-        this.filePath = filePath;
+    public FileGetResponseDto(File entity){
+        id = entity.getId();
+        origFilename = entity.getOrigFilename();
+        filename = entity.getFilename();
+        filePath = entity.getFilePath();
     }
 }

@@ -16,7 +16,7 @@ import lombok.Setter;
 public class PostSaveRequestDto {
 
     private Long id;
-    private Long fileId;
+    private Long fileid;
     private String item;
     private String material;
     private int stock;
@@ -24,11 +24,12 @@ public class PostSaveRequestDto {
 
     public Posts toEntity(){
         return Posts.builder()
-                .fileId(fileId)
+                .fileid(fileid)
                 .item(item)
                 .material(material)
                 .stock(stock)
                 .content(content)
                 .build();
     }
+
 }

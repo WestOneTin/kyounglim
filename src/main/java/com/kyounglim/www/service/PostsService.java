@@ -36,13 +36,14 @@ public class PostsService {
 
     @Transactional
     public Long save(PostSaveRequestDto dto){
+
         return postsRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
     public Posts put(Long id, PostSaveRequestDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        post.update(dto.getFileId(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
+        post.update(dto.getFileid(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
         return post;
     }
 

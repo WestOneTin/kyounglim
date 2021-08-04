@@ -1,12 +1,17 @@
 package com.kyounglim.www.web;
 
 import com.kyounglim.www.domain.posts.Posts;
+import com.kyounglim.www.dto.file.FileSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
+import com.kyounglim.www.service.FileService;
 import com.kyounglim.www.service.PostsService;
+import com.kyounglim.www.util.MD5Generator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -16,8 +21,11 @@ public class WebRestController {
 
     private PostsService postsService;
 
+    private FileService fileService;
     @GetMapping("/hello")
     public String hello(){
+        String dir = System.getProperty("user.dir");
+        System.out.println(dir);
         return "HelloWorld";
     }
 
@@ -33,8 +41,64 @@ public class WebRestController {
     }
 
     @PostMapping("/save")
-    public Long savePost(@RequestBody PostSaveRequestDto dto){
-        return postsService.save(dto);
+    public void savePost(@RequestParam("file") MultipartFile file,  PostSaveRequestDto postdto){//@RequestBody
+        try {
+            String origFilename = file.getOriginalFilename();
+            String filename = new MD5Generator(origFilename).toString();
+            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
+            String savePath = System.getProperty("user.dir") + "\\img";
+            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
+            if(!new File(savePath).exists()){
+                try{
+                    new File(savePath).mkdir();
+                }catch (Exception e){
+                    e.getStackTrace();
+                }
+            }
+            String filePath = savePath + "\\img" + filename;
+            file.transferTo(new File(filePath));
+
+            FileSaveRequestDto filedto = new FileSaveRequestDto();
+            filedto.setOrigFilename(origFilename);
+            filedto.setFilename(filename);
+            filedto.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(filedto);
+            postdto.setFileid(fileId);
+            postsService.save(postdto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @PostMapping("/savefile")
+    public void savefile(@RequestParam("file") MultipartFile file){
+        try {
+            String origFilename = file.getOriginalFilename();
+            String filename = new MD5Generator(origFilename).toString();
+            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
+            String savePath = System.getProperty("user.dir") + "\\imgs";
+            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
+            if (!new File(savePath).exists()) {
+                try{
+                    new File(savePath).mkdir();
+                }
+                catch(Exception e){
+                    e.getStackTrace();
+                }
+            }
+            String filePath = savePath + "\\" + filename;
+            file.transferTo(new File(filePath));
+
+            FileSaveRequestDto filedto = new FileSaveRequestDto();
+            filedto.setOrigFilename(origFilename);
+            filedto.setFilename(filename);
+            filedto.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(filedto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @PutMapping("/{id}/put")

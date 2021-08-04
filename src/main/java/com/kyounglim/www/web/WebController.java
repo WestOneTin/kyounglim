@@ -16,9 +16,14 @@ public class WebController {
     @GetMapping("/")
     public String table(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
+        System.out.println(System.getProperty("user.dir"));
         return "main";
     }
 
+    @GetMapping("/create")
+    public String creatview(){
+        return "create";
+    }
     /*
     @GetMapping("/new")
     public String new(){

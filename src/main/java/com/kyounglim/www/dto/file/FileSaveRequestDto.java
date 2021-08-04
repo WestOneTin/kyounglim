@@ -1,6 +1,6 @@
 package com.kyounglim.www.dto.file;
 
-import com.kyounglim.www.domain.files.Files;
+import com.kyounglim.www.domain.files.File;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,8 +14,8 @@ public class FileSaveRequestDto {
     private String filename;
     private String filePath;
 
-    public Files toEntity(){
-        return  Files.builder()
+    public File toEntity(){
+        return File.builder()
                 .id(id)
                 .origFilename(origFilename)
                 .filename(filename)

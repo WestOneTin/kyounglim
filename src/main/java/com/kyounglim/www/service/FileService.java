@@ -1,7 +1,7 @@
 package com.kyounglim.www.service;
 
-import com.kyounglim.www.domain.files.Files;
-import com.kyounglim.www.domain.files.FilesRepository;
+import com.kyounglim.www.domain.files.File;
+import com.kyounglim.www.domain.files.FileRepository;
 import com.kyounglim.www.dto.file.FileGetResponseDto;
 import com.kyounglim.www.dto.file.FileSaveRequestDto;
 import lombok.AllArgsConstructor;
@@ -11,24 +11,26 @@ import javax.transaction.Transactional;
 
 @AllArgsConstructor
 @Service
-public class FilesService {
-    private FilesRepository filesRepository;
+public class FileService {
+    private FileRepository fileRepository;
 
     @Transactional
     public Long saveFile(FileSaveRequestDto dto){
-        return filesRepository.save(dto.toEntity()).getId();
+        return fileRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
     public FileGetResponseDto getFile(Long id){
-        Files file = filesRepository.findById(id).get();
+        File file = fileRepository.findById(id).get();
 
-        FileGetResponseDto dto = FileGetResponseDto.builder()
+        File entity = File.builder()
                 .id(id)
                 .origFilename(file.getOrigFilename())
                 .filename(file.getFilename())
                 .filePath(file.getFilePath())
                 .build();
+
+        FileGetResponseDto dto = new FileGetResponseDto(entity);
         return dto;
     }
 }

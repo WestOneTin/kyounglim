@@ -24,7 +24,7 @@ public class PostsGetResponseDto{
 
     public PostsGetResponseDto(Posts entity) {
         id = entity.getId();
-        fileId = entity.getFileId();
+        fileId = entity.getFileid();
         item = entity.getItem();
         material = entity.getMaterial();
         stock = entity.getStock();
