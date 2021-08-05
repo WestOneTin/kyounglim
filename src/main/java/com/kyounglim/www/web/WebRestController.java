@@ -1,6 +1,7 @@
 package com.kyounglim.www.web;
 
 import com.kyounglim.www.domain.posts.Posts;
+import com.kyounglim.www.dto.file.FileGetResponseDto;
 import com.kyounglim.www.dto.file.FileSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
@@ -29,24 +30,29 @@ public class WebRestController {
         return "HelloWorld";
     }
 
-    // 테스트용 post list
+    // Test post list
     @GetMapping("/get")
     public List<PostsGetResponseDto> list(){
         return postsService.findAllDesc();
     }
 
-    @GetMapping ("/getpost/{id}")
+    // Test file getById
+    @GetMapping("/getfile/{id}")
+    public FileGetResponseDto filelist(@PathVariable("id") Long id){ return fileService.getFile(id); }
+
+    // Test post
+    @GetMapping ("/posttest/{id}")
     public PostsGetResponseDto get(@PathVariable("id") Long id){
         return postsService.getById(id);
     }
 
     @PostMapping("/save")
-    public void savePost(@RequestParam("file") MultipartFile file,  PostSaveRequestDto postdto){//@RequestBody
+    public void savePost(@RequestParam("file") MultipartFile file, PostSaveRequestDto postdto){//@RequestBody
         try {
             String origFilename = file.getOriginalFilename();
-            String filename = new MD5Generator(origFilename).toString();
+            String filename = new MD5Generator(origFilename).toString() + ".jpg";
             /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
-            String savePath = System.getProperty("user.dir") + "\\img";
+            String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img";
             /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
             if(!new File(savePath).exists()){
                 try{
@@ -55,7 +61,7 @@ public class WebRestController {
                     e.getStackTrace();
                 }
             }
-            String filePath = savePath + "\\img" + filename;
+            String filePath = savePath + "\\" + filename;
             file.transferTo(new File(filePath));
 
             FileSaveRequestDto filedto = new FileSaveRequestDto();
@@ -75,7 +81,7 @@ public class WebRestController {
     public void savefile(@RequestParam("file") MultipartFile file){
         try {
             String origFilename = file.getOriginalFilename();
-            String filename = new MD5Generator(origFilename).toString();
+            String filename = new MD5Generator(origFilename + ".img").toString();
             /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
             String savePath = System.getProperty("user.dir") + "\\imgs";
             /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
@@ -101,17 +107,17 @@ public class WebRestController {
         }
     }
 
-    @PutMapping("/{id}/put")
+    @PutMapping("/put/{id}")
     public Posts putPost(@PathVariable("id") Long id , @RequestBody PostSaveRequestDto dto) {
            return postsService.put(id, dto);
     }
 
-    @PutMapping("/{id}/put-stock")
+    @PutMapping("/put-stock/{id}")
     public void stock_edit(@PathVariable("id") Long id, @RequestBody int stock){
         postsService.putStock(id, stock);
     }
 
-    @DeleteMapping("/{id}/del")
+    @DeleteMapping("/del/{id}")
     public void deletePost(@PathVariable("id") Long id){
         postsService.delete(id);
     }

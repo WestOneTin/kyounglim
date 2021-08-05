@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -16,7 +17,6 @@ public class WebController {
     @GetMapping("/")
     public String table(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
-        System.out.println(System.getProperty("user.dir"));
         return "main";
     }
 
@@ -24,14 +24,10 @@ public class WebController {
     public String creatview(){
         return "create";
     }
-    /*
-    @GetMapping("/new")
-    public String new(){
-        return "new"
-    }*/
 
-    @GetMapping("/post")
-    public String post(Long id, Model model){
+
+    @GetMapping("/post/{id}")
+    public String post(@PathVariable("id") Long id, Model model){
         model.addAttribute("post", postsService.getById(id));
         return "post";
     }
