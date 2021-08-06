@@ -52,12 +52,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">재고목록 <span class="sr-only">(current)</span></a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10 main">
             <div class="row">
                 <div class="col-xs-12 placeholder">
                     <div>
@@ -87,7 +82,9 @@
                     {{#each posts}}
                         <tr>
                             <td style="vertical-align: middle;">{{id}}</td>
-                            <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
+                            <td style="vertical-align: middle;"><img src="img/main_img.jpg"
+                                                                     class="img-responsive img-rounded center-block"
+                                                                     width="100"></td>
                             <td style="vertical-align: middle;">{{item}}</td>
                             <td style="vertical-align: middle;">{{material}}</td>
                             <td style="vertical-align: middle;">{{stock}}</td>

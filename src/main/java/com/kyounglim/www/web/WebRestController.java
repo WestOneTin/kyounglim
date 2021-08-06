@@ -23,6 +23,7 @@ public class WebRestController {
     private PostsService postsService;
 
     private FileService fileService;
+
     @GetMapping("/hello")
     public String hello(){
         String dir = System.getProperty("user.dir");
@@ -47,7 +48,7 @@ public class WebRestController {
     }
 
     @PostMapping("/save")
-    public void savePost(@RequestParam("file") MultipartFile file, PostSaveRequestDto postdto){//@RequestBody
+    public Long savePost(@RequestParam("file") MultipartFile file, PostSaveRequestDto postdto){//@RequestBody
         try {
             String origFilename = file.getOriginalFilename();
             String filename = new MD5Generator(origFilename).toString() + ".jpg";
@@ -72,8 +73,12 @@ public class WebRestController {
             Long fileId = fileService.saveFile(filedto);
             postdto.setFileid(fileId);
             postsService.save(postdto);
+
+            return postsService.save(postdto);
+
         }catch (Exception e){
             e.printStackTrace();
+            return 0L;
         }
     }
 

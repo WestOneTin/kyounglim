@@ -32,6 +32,9 @@ public class WebController {
         return "post";
     }
 
+    @GetMapping("/save")
+    public String main(Model model){return "redirect:/";
+    }
 
 
 }
