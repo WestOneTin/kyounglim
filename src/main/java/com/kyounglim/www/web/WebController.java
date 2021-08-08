@@ -2,6 +2,7 @@ package com.kyounglim.www.web;
 
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,9 @@ public class WebController {
 
     private PostsService postsService;
 
-    @GetMapping("/")
-    public String table(Model model) {
-        model.addAttribute("posts", postsService.findAllDesc());
+    @GetMapping("/{page}")
+    public String table(Model model, @PathVariable("page") int page) {
+        model.addAttribute("posts", postsService.findAll(page));
         return "main";
     }
 

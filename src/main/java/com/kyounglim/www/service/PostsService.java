@@ -6,12 +6,15 @@ import com.kyounglim.www.domain.posts.PostsRepository;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
@@ -21,11 +24,16 @@ public class PostsService {
     private final PostsRepository postsRepository;
 
     @Transactional(readOnly = true)
-    public List<PostsGetResponseDto> findAllDesc() {
+    public Page<Posts> findAll(int page){
+        return postsRepository.findAll(PageRequest.of(page, 10, Sort.by("id").descending()));
+    }
+
+    /*@Transactional(readOnly = true)
+    public List<PostsGetResponseDto> findAllDesc(final Pageable pageable) {
         return postsRepository.findAllDesc()
                 .map(PostsGetResponseDto::new)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     @Transactional
     public PostsGetResponseDto getById(Long id){

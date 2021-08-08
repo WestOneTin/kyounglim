@@ -40,11 +40,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">경림상사</a>
+            <a class="navbar-brand" href="/0">경림상사</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">재고목록</a></li>
+                <li><a href="/0">재고목록</a></li>
             </ul>
         </div>
     </div>
@@ -73,14 +73,14 @@
                         <label for="material">비고</label>
                         <textarea name="content" class="form-control" rows="3" id="content"></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="test1234">
                         <label for="InputFile">사진 업로드</label>
-                        <input name="file" type="file" id="file">
-                    </div>
-                    <div class="btn pull-right">
-                        <button type="submit" class="btn btn-default" id="btn-save">작성</button>
+                        <input name="file" type="file" id="file" />
                     </div>
                 </form>
+                <div class="btn pull-right">
+                    <button type="submit" class="btn btn-default" id="btn-save">작성</button>
+                </div>
             </div>
         </div>
     </div>
@@ -89,11 +89,11 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <!--custom js-->
 <script src="js/save.js"></script>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="js/holder.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

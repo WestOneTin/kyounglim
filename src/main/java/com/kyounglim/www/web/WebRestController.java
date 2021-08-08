@@ -9,6 +9,8 @@ import com.kyounglim.www.service.FileService;
 import com.kyounglim.www.service.PostsService;
 import com.kyounglim.www.util.MD5Generator;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,9 +34,9 @@ public class WebRestController {
     }
 
     // Test post list
-    @GetMapping("/get")
-    public List<PostsGetResponseDto> list(){
-        return postsService.findAllDesc();
+    @GetMapping("/get/{page}")
+    public Page<Posts> list(@PathVariable int page){
+        return postsService.findAll(page);
     }
 
     // Test file getById
@@ -72,7 +74,6 @@ public class WebRestController {
 
             Long fileId = fileService.saveFile(filedto);
             postdto.setFileid(fileId);
-            postsService.save(postdto);
 
             return postsService.save(postdto);
 

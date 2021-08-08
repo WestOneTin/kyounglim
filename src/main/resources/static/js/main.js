@@ -1,0 +1,2 @@
+var totalPages = $('#totalPages').val();
+

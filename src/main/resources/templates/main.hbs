@@ -40,11 +40,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">경림상사</a>
+            <a class="navbar-brand" href="/0">경림상사</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">재고목록</a></li>
+                <li><a href="/0">재고목록</a></li>
             </ul>
         </div>
     </div>
@@ -104,21 +104,12 @@
                 <div class="col-xs-12 placeholder text-center">
                     <nav>
                         <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
+                            <input type="hidden" id="totalPages" value="{{posts.totalPages}}">
                             <li><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
                             <li><a href="#">4</a></li>
                             <li><a href="#">5</a></li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
                         </ul>
                     </nav>
                 </div>
