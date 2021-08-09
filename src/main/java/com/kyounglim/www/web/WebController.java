@@ -21,6 +21,11 @@ public class WebController {
         return "main";
     }
 
+    @GetMapping("/")
+    public String main(){
+        return "redirect:/0";
+    }
+
     @GetMapping("/create")
     public String creatview(){
         return "create";
@@ -32,10 +37,5 @@ public class WebController {
         model.addAttribute("post", postsService.getById(id));
         return "post";
     }
-
-    @GetMapping("/save")
-    public String main(Model model){return "redirect:/";
-    }
-
 
 }

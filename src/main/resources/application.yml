@@ -21,5 +21,9 @@ spring:
       enabled: true
     livereload:
       enabled: true
-
-
+#server:
+  #error:
+   # include-exception: true
+   # include-stacktrace: always
+   # whitelabel:
+   #   enabled: false

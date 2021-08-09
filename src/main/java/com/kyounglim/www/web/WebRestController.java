@@ -49,6 +49,37 @@ public class WebRestController {
         return postsService.getById(id);
     }
 
+    // Test Save File
+    @PostMapping("/savefile")
+    public void savefile(@RequestParam("file") MultipartFile file){
+        try {
+            String origFilename = file.getOriginalFilename();
+            String filename = new MD5Generator(origFilename + ".img").toString();
+            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
+            String savePath = System.getProperty("user.dir") + "\\imgs";
+            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
+            if (!new File(savePath).exists()) {
+                try{
+                    new File(savePath).mkdir();
+                }
+                catch(Exception e){
+                    e.getStackTrace();
+                }
+            }
+            String filePath = savePath + "\\" + filename;
+            file.transferTo(new File(filePath));
+
+            FileSaveRequestDto filedto = new FileSaveRequestDto();
+            filedto.setOrigFilename(origFilename);
+            filedto.setFilename(filename);
+            filedto.setFilePath(filePath);
+
+            Long fileId = fileService.saveFile(filedto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     @PostMapping("/save")
     public Long savePost(@RequestParam("file") MultipartFile file, PostSaveRequestDto postdto){//@RequestBody
         try {
@@ -80,36 +111,6 @@ public class WebRestController {
         }catch (Exception e){
             e.printStackTrace();
             return 0L;
-        }
-    }
-
-    @PostMapping("/savefile")
-    public void savefile(@RequestParam("file") MultipartFile file){
-        try {
-            String origFilename = file.getOriginalFilename();
-            String filename = new MD5Generator(origFilename + ".img").toString();
-            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
-            String savePath = System.getProperty("user.dir") + "\\imgs";
-            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
-            if (!new File(savePath).exists()) {
-                try{
-                    new File(savePath).mkdir();
-                }
-                catch(Exception e){
-                    e.getStackTrace();
-                }
-            }
-            String filePath = savePath + "\\" + filename;
-            file.transferTo(new File(filePath));
-
-            FileSaveRequestDto filedto = new FileSaveRequestDto();
-            filedto.setOrigFilename(origFilename);
-            filedto.setFilename(filename);
-            filedto.setFilePath(filePath);
-
-            Long fileId = fileService.saveFile(filedto);
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
 

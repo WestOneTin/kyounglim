@@ -56,22 +56,24 @@
             <h1 class="page-header">재고목록 작성</h1>
             <div class="col-md-offset-3 col-md-6">
                 <form class="form-horizontal" name="form" id="form" enctype="multipart/form-data">
+                    <input name="id" type="hidden" value="{{id}}">
+                    <input name="fileid" type="hidden" value="{{fileid}}">
                     <div class="form-group">
                         <label for="item">모델명</label>
-                        <input name="item" type="text" class="form-control" id="item" placeholder="모델명">
+                        <input name="item" type="text" class="form-control" id="item" placeholder="모델명" value="{{item}}">
                     </div>
                     <div class="form-group">
                         <label for="material">소재</label>
-                        <input name="material" type="text" class="form-control" id="material" placeholder="소재">
+                        <input name="material" type="text" class="form-control" id="material" placeholder="소재" value="{{material}}">
                     </div>
                     <div class="form-group">
                         <label for="material">재고량</label>
                         <input name="stock" type="number" pattern="\d*" placeholder="number" class="form-control"
-                               id="stock" placeholder="재고량">
+                               id="stock" placeholder="재고량" value="{{stock}}">
                     </div>
                     <div class="form-group">
                         <label for="material">비고</label>
-                        <textarea name="content" class="form-control" rows="3" id="content"></textarea>
+                        <textarea name="content" class="form-control" rows="3" id="content" {{content}}></textarea>
                     </div>
                     <div class="form-group" id="test1234">
                         <label for="InputFile">사진 업로드</label>

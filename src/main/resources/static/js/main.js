@@ -1,5 +1,6 @@
 var totalPages = $('#totalPages').val();
-var pagesval = totalPages - 1;
+var page = 0;
 
-var pagination = '<li><a href="/0">1</a></li>'
-$('#pagination').append(pagination);
+for(page; page <totalPages; page++) {
+    $('<li><a href="/' + page + '">' + (page+1) + '</a></li>').appendTo('#pagination');
+}
