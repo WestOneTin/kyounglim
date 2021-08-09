@@ -43,6 +43,11 @@ public class PostsService {
     }
 
     @Transactional
+    public Page<Posts> search(String item, String material){
+        return postsRepository.findByItemOrMaterialContaining(item, material);
+    }
+
+    @Transactional
     public Long save(PostSaveRequestDto dto){
 
         return postsRepository.save(dto.toEntity()).getId();
@@ -51,7 +56,7 @@ public class PostsService {
     @Transactional
     public Posts put(Long id, PostSaveRequestDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        post.update(dto.getFileid(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
+        post.update(dto.getFileid(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); // persistence context 영속성 컨텍스트로 인해 업데이트 성공
         return post;
     }
 

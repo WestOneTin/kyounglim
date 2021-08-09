@@ -17,25 +17,25 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     // Mybatis,ibatis 에서는 DAO 의 역할과 같은 DB Layer 접근자 JpaRepository<Entity클래스, PK타입>를 상속하면 기본적인 CRUD 메소드가 자동생성
 
     // p <- 별칭
-    @Query("SELECT p " +
+    /*SELECT
+          p.id as id,
+          p.fileId as fileId,
+          p.item as item,
+          p.material as material,
+          p.stock as stock,
+          p.content as content
+    from
+          Posts p
+    ORDER BY
+          p.id DESC*/
+    /*@Query("SELECT p " +
             "FROM Posts p " +
             "ORDER BY p.id DESC")
-    //SELECT
-    //      p.id as id,
-    //      p.fileId as fileId,
-    //      p.item as item,
-    //      p.material as material,
-    //      p.stock as stock,
-    //      p.content as content
-    //from
-    //      Posts p
-    //ORDER BY
-    //      p.id DESC
-    Stream<Posts> findAllDesc();
+    Stream<Posts> findAllDesc();*/
+
+    Page<Posts> findByItemOrMaterialContaining(String item, String material);
 
     Page<Posts> findAll(Pageable pageable);
-
-    List<Posts> findByIdGreaterThan(Long id, Pageable pageable);
 
     void deleteById(Long id);
 
