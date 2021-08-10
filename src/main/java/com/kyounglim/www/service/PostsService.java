@@ -43,9 +43,10 @@ public class PostsService {
     }
 
     @Transactional
-    public Page<Posts> search(String item, String material){
-        return postsRepository.findByItemOrMaterialContaining(item, material);
+    public Page<Posts> search(String item, String material, int page){
+        return postsRepository.findAllByItemOrMaterialContains(item, material, PageRequest.of(page, 10, Sort.by("id").descending()));
     }
+
 
     @Transactional
     public Long save(PostSaveRequestDto dto){

@@ -28,12 +28,31 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
           Posts p
     ORDER BY
           p.id DESC*/
-    /*@Query("SELECT p " +
+    @Query("SELECT p " +
             "FROM Posts p " +
             "ORDER BY p.id DESC")
-    Stream<Posts> findAllDesc();*/
+    Stream<Posts> findAllDesc();
 
-    Page<Posts> findByItemOrMaterialContaining(String item, String material);
+    /*
+    select
+        posts0_.id as id1_1_,
+        posts0_.created_date as created_2_1_,
+        posts0_.modified_date as modified3_1_,
+        posts0_.content as content4_1_,
+        posts0_.fileid as fileid5_1_,
+        posts0_.item as item6_1_,
+        posts0_.material as material7_1_,
+        posts0_.stock as stock8_1_
+    from
+        posts posts0_
+    where
+        posts0_.item=?
+    or
+        posts0_.material
+    like
+        ? escape ?
+    */
+    Page<Posts> findAllByItemOrMaterialContains(String item, String material, Pageable pageable);
 
     Page<Posts> findAll(Pageable pageable);
 

@@ -11,6 +11,7 @@ import com.kyounglim.www.util.MD5Generator;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,7 +45,7 @@ public class WebRestController {
     public FileGetResponseDto filelist(@PathVariable("id") Long id){ return fileService.getFile(id); }
 
     // Test post
-    @GetMapping ("/posttest/{id}")
+    @GetMapping ("/getpost/{id}")
     public PostsGetResponseDto get(@PathVariable("id") Long id){
         return postsService.getById(id);
     }
@@ -78,6 +79,11 @@ public class WebRestController {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/search")
+    public Page<Posts> search(String item, String material, int page){
+        return postsService.search(item, material, page);
     }
 
     @PostMapping("/save")
