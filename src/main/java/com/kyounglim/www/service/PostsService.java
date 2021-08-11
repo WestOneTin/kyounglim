@@ -23,9 +23,15 @@ public class PostsService {
 
     private final PostsRepository postsRepository;
 
+
     @Transactional(readOnly = true)
     public Page<Posts> findAll(int page){
         return postsRepository.findAll(PageRequest.of(page, 10, Sort.by("id").descending()));
+    }
+
+    @Transactional
+    public Page<Posts> searchtest(String item, String material, int page){
+        return postsRepository.findAllByItemContainsOrMaterialContains(item, material, PageRequest.of(page, 10, Sort.by("id").descending()));
     }
 
     /*@Transactional(readOnly = true)
@@ -36,16 +42,19 @@ public class PostsService {
     }*/
 
     @Transactional
+    public Page<Posts> search(String data, int page){
+        return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending()));
+    }
+
+    @Transactional
     public PostsGetResponseDto getById(Long id){
         Posts post = postsRepository.getById(id);
         PostsGetResponseDto dto = new PostsGetResponseDto(post);
         return dto;
     }
 
-    @Transactional
-    public Page<Posts> search(String data, int page){
-        return postsRepository.findAllByItemContainsOrMaterialContains(data, PageRequest.of(page, 10, Sort.by("id").descending()));
-    }
+
+
 
     @Transactional
     public Long save(PostSaveRequestDto dto){

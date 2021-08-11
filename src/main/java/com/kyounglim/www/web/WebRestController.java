@@ -50,6 +50,12 @@ public class WebRestController {
         return postsService.getById(id);
     }
 
+    // Test JPA search
+    @GetMapping("/searchtest")
+    public Page<Posts> search(String item, String material, int page){
+        return postsService.searchtest(item, material, page);
+    }
+
     // Test Save File
     @PostMapping("/savefile")
     public void savefile(@RequestParam("file") MultipartFile file){
@@ -81,10 +87,12 @@ public class WebRestController {
         }
     }
 
-    @GetMapping("/search/{page}")
-    public Page<Posts> search(String data, int page){
+
+    @GetMapping("/{page}/{data}")
+    public Page<Posts> search(@PathVariable("data") String data, @PathVariable("page") int page){
         return postsService.search(data, page);
     }
+
 
     @PostMapping("/save")
     public Long savePost(@RequestParam("file") MultipartFile file, PostSaveRequestDto postdto){//@RequestBody

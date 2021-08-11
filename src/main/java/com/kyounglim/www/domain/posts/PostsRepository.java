@@ -52,9 +52,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     like
         ? escape ?
     */
-
     @Query("SELECT p FROM Posts p WHERE p.item LIKE %:data% OR p.material LIKE %:data% ") //?1 는 첫번째 parameter 자리에 있는것을 넣겠다는 뜻
-    Page<Posts> findAllByItemContainsOrMaterialContains(String data, Pageable pageable);
+    Page<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
+
+    Page<Posts> findAllByItemContainsOrMaterialContains(String item, String material, Pageable pageable);
 
     Page<Posts> findAll(Pageable pageable);
 

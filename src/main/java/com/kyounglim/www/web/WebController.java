@@ -1,7 +1,9 @@
 package com.kyounglim.www.web;
 
+import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +17,21 @@ public class WebController {
 
     private PostsService postsService;
 
-    @GetMapping("/{page}")
-    public String table(Model model, @PathVariable("page") int page, String data) {
+    /*@GetMapping("/{page}")
+    public String table(Model model, @PathVariable("page") int page) {
+        model.addAttribute("posts", postsService.findAll(page));
+        return "main";
+    }*/
+
+    @GetMapping("/{page}/{data}")
+    public String search(@PathVariable("data") String data, @PathVariable("page") int page, Model model){
         model.addAttribute("posts", postsService.search(data, page));
-        model.addAttribute("data", data);
         return "main";
     }
 
     @GetMapping("/")
     public String main(){
-        return "redirect:/0?data=";
+        return "redirect:/0";
     }
 
     @GetMapping("/create")
