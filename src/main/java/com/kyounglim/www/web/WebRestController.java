@@ -81,9 +81,9 @@ public class WebRestController {
         }
     }
 
-    @GetMapping("/search")
-    public Page<Posts> search(String item, String material, int page){
-        return postsService.search(item, material, page);
+    @GetMapping("/search/{page}")
+    public Page<Posts> search(String data, int page){
+        return postsService.search(data, page);
     }
 
     @PostMapping("/save")

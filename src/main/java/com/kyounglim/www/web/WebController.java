@@ -16,14 +16,15 @@ public class WebController {
     private PostsService postsService;
 
     @GetMapping("/{page}")
-    public String table(Model model, @PathVariable("page") int page) {
-        model.addAttribute("posts", postsService.findAll(page));
+    public String table(Model model, @PathVariable("page") int page, String data) {
+        model.addAttribute("posts", postsService.search(data, page));
+        model.addAttribute("data", data);
         return "main";
     }
 
     @GetMapping("/")
     public String main(){
-        return "redirect:/0";
+        return "redirect:/0?data=";
     }
 
     @GetMapping("/create")
