@@ -65,7 +65,7 @@ public class PostsService {
     @Transactional
     public Posts put(Long id, PostSaveRequestDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        post.update(dto.getFileid(), dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); // persistence context 영속성 컨텍스트로 인해 업데이트 성공
+        post.update(dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); // persistence context 영속성 컨텍스트로 인해 업데이트 성공
         return post;
     }
 
