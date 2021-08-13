@@ -1,19 +1,18 @@
 package com.kyounglim.www.domain.files;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.kyounglim.www.domain.posts.Posts;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class File {
+public class Files {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "FILES_ID")
     private Long id;
 
     @Column(nullable = false)
@@ -26,7 +25,7 @@ public class File {
     private String filePath;
 
     @Builder
-    public File(Long id, String origFilename, String filename, String filePath) {
+    public Files(Long id, String origFilename, String filename, String filePath) {
         this.id = id;
         this.origFilename = origFilename;
         this.filename = filename;

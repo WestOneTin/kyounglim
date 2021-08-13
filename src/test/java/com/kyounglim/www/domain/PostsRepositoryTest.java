@@ -27,7 +27,6 @@ public class PostsRepositoryTest {
     @Test
     public void 게시글저장_불러오기(){
         postsRepository.save(Posts.builder()
-                .fileid(1L)
                 .item("test")
                 .material("test")
                 .stock(1)
@@ -39,14 +38,12 @@ public class PostsRepositoryTest {
 
         //then ( 테스트 결과 검증 실제로 DB에 insert 되었는지 확인하기 위해 조회후, 입력된 값 확인)
         Posts posts = postsList.get(0);
-        assertThat(posts.getFileid(), is(1L));
         assertThat(posts.getContent(), is("test"));
     }
 
     @Test
     public void 게시글저장_불러오기_수정(){
         postsRepository.save(Posts.builder()
-                .fileid(1L)
                 .item("test")
                 .material("test")
                 .stock(1)
@@ -58,7 +55,6 @@ public class PostsRepositoryTest {
 
         //then ( 테스트 결과 검증 실제로 DB에 insert 되었는지 확인하기 위해 조회후, 입력된 값 확인)
         Posts posts = postsList.get(0);
-        assertThat(posts.getFileid(), is(1L));
         assertThat(posts.getItem(), is("test"));
         assertThat(posts.getMaterial(), is("test"));
         assertThat(posts.getStock(), is(1));
@@ -67,7 +63,6 @@ public class PostsRepositoryTest {
         Posts posts1 = postsRepository.getById(0L);
             postsRepository.saveAndFlush(posts1.builder()
                     .id(0L)
-                    .fileid(1L)
                     .item("수정")
                     .material("수정")
                     .stock(1)
@@ -79,7 +74,6 @@ public class PostsRepositoryTest {
 
         //then ( 테스트 결과 검증 실제로 DB에 insert 되었는지 확인하기 위해 조회후, 입력된 값 확인)
         Posts posts2 = postsList1.get(0);
-        assertThat(posts2.getFileid(), is(1L));
         assertThat(posts2.getItem(), is("수정"));
         assertThat(posts2.getMaterial(), is("수정"));
         assertThat(posts2.getStock(), is(1));

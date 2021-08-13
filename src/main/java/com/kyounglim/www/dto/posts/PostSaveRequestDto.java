@@ -1,5 +1,6 @@
 package com.kyounglim.www.dto.posts;
 
+import com.kyounglim.www.domain.files.Files;
 import com.kyounglim.www.domain.posts.Posts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,19 +17,19 @@ import lombok.Setter;
 public class PostSaveRequestDto {
 
     private Long id;
-    private Long fileid;
     private String item;
     private String material;
     private int stock;
     private String content;
+    private Files files;
 
     public Posts toEntity(){
         return Posts.builder()
-                .fileid(fileid)
                 .item(item)
                 .material(material)
                 .stock(stock)
                 .content(content)
+                .files(files)
                 .build();
     }
 

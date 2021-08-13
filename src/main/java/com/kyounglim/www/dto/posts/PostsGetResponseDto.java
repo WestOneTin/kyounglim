@@ -1,5 +1,6 @@
 package com.kyounglim.www.dto.posts;
 
+import com.kyounglim.www.domain.files.Files;
 import com.kyounglim.www.domain.posts.Posts;
 import lombok.Getter;
 
@@ -15,16 +16,15 @@ import java.util.Optional;
 @Getter
 public class PostsGetResponseDto{
     private Long id;
-    private Long fileId;
     private String item;
     private String material;
     private int stock;
     private String content;
     private String modifiedDate;
+    private Files files;
 
     public PostsGetResponseDto(Posts entity) {
         id = entity.getId();
-        fileId = entity.getFileid();
         item = entity.getItem();
         material = entity.getMaterial();
         stock = entity.getStock();
