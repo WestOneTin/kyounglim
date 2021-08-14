@@ -23,8 +23,8 @@ public class WebController {
         return "main";
     }*/
 
-    @GetMapping("/{page}/{data}")
-    public String search(@PathVariable("data") String data, @PathVariable("page") int page, Model model){
+    @GetMapping("/{page}")
+    public String search(String data, @PathVariable("page") int page, Model model){
         model.addAttribute("posts", postsService.search(data, page));
         return "main";
     }

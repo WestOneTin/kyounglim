@@ -1,5 +1,6 @@
 package com.kyounglim.www.web;
 
+import com.kyounglim.www.domain.files.Files;
 import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.dto.file.FileGetResponseDto;
 import com.kyounglim.www.dto.file.FileSaveRequestDto;
@@ -88,8 +89,8 @@ public class WebRestController {
     }
 
 
-    @GetMapping("/{page}/{data}")
-    public Page<Posts> search(@PathVariable("data") String data, @PathVariable("page") int page){
+    @GetMapping("/search/{page}")
+    public Page<Posts> search(String data, @PathVariable("page") int page){
         return postsService.search(data, page);
     }
 
@@ -112,15 +113,10 @@ public class WebRestController {
             String filePath = savePath + "\\" + filename;
             file.transferTo(new File(filePath));
 
-            FileSaveRequestDto filedto = new FileSaveRequestDto();
-            filedto.setOrigFilename(origFilename);
-            filedto.setFilename(filename);
-            filedto.setFilePath(filePath);
+            Files files = Files.builder().origFilename(origFilename).filename(filename).filePath(filePath).build();
+            Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(files).build();
 
-            Long fileId = fileService.saveFile(filedto);
-            postdto.setFileid(fileId);
-
-            return postsService.save(postdto);
+            return postsService.save(posts);
 
         }catch (Exception e){
             e.printStackTrace();
