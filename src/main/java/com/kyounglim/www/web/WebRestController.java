@@ -96,27 +96,32 @@ public class WebRestController {
 
 
     @PostMapping("/save")
-    public Long savePost(@RequestParam("file") MultipartFile file, PostSaveRequestDto postdto){//@RequestBody
+    public Long savePost(@RequestParam(required = false, name = "file") MultipartFile file, PostSaveRequestDto postdto){
         try {
-            String origFilename = file.getOriginalFilename();
-            String filename = new MD5Generator(origFilename).toString() + ".jpg";
-            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
-            String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img";
-            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
-            if(!new File(savePath).exists()){
-                try{
-                    new File(savePath).mkdir();
-                }catch (Exception e){
-                    e.getStackTrace();
+                String origFilename = file.getOriginalFilename();
+                String filename = new MD5Generator(origFilename).toString() + ".jpg";
+                /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
+                /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
+                if(filename.equals("d41d8cd98f00b204e9800998ecf8427e.jpg")){
+                    Files files = Files.builder().origFilename(null).filename(null).filePath(null).build();
+                    Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(files).build();
+                    return postsService.save(posts);
+                }else{
+                    //
+                    String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img";
+                    if (!new File(savePath).exists()) {
+                        try {
+                            new File(savePath).mkdir();
+                        } catch (Exception e) {
+                            e.getStackTrace();
+                        }
+                    }
+                    String filePath = savePath + "\\" + filename;
+                    file.transferTo(new File(filePath));
+                    Files files = Files.builder().origFilename(origFilename).filename(filename).filePath(savePath).build();
+                    Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(files).build();
+                    return postsService.save(posts);
                 }
-            }
-            String filePath = savePath + "\\" + filename;
-            file.transferTo(new File(filePath));
-
-            Files files = Files.builder().origFilename(origFilename).filename(filename).filePath(filePath).build();
-            Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(files).build();
-
-            return postsService.save(posts);
 
         }catch (Exception e){
             e.printStackTrace();

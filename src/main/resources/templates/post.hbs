@@ -71,7 +71,13 @@
                     {{#with post}}
                         <tr>
                             <td style="vertical-align: middle;">{{id}}</td>
-                            <td style="vertical-align: middle;"><img src="../img/main_img.jpg" class="img-responsive img-rounded center-block" width="250"></td>
+                            {{#if files.filename '!=' null }}
+                                <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block"
+                                                                         width="100"></td>
+                            {{else}}
+                                <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block"
+                                                                         width="100"></td>
+                            {{/if}}
                             <td style="vertical-align: middle;">{{item}}</td>
                             <td style="vertical-align: middle;">{{material}}</td>
                             <td style="vertical-align: middle;">{{stock}}</td>

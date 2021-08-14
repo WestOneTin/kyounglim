@@ -61,7 +61,7 @@
                     <form action="/0" method="get" id="search">
                     <div class="col-lg-6">
                         <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for..." name="data">
+                                <input type="text" class="form-control" placeholder="모델명 or 소재" name="data">
                                 <input type="hidden" value="{{data}}" id="get-data">
                                 <span class="input-group-btn">
                                   <input value="검색" class="btn btn-info" type="submit" />
@@ -90,10 +90,13 @@
                     {{#each posts}}
                         <tr>
                             <td style="vertical-align: middle;">{{id}}</td>
-                            {{content.files.filename}}
-                            <td style="vertical-align: middle;"><img src="img/main_img.jpg"
-                                                                     class="img-responsive img-rounded center-block"
-                                                                     width="100"></td>
+                            {{#if files.filename '!=' null }}
+                                <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block"
+                                                                         width="100"></td>
+                            {{else}}
+                                    <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block"
+                                                                             width="100"></td>
+                            {{/if}}
                             <td style="vertical-align: middle;">{{item}}</td>
                             <td style="vertical-align: middle;">{{material}}</td>
                             <td style="vertical-align: middle;">{{stock}}</td>

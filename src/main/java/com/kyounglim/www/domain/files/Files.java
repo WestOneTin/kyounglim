@@ -12,16 +12,17 @@ public class Files {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FILES_ID")
+    @Column(name = "FILES_ID", nullable = false)
+
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String origFilename;
 
-    @Column(nullable = false)
+    @Column
     private String filename;
 
-    @Column(nullable = false)
+    @Column
     private String filePath;
 
     @Builder

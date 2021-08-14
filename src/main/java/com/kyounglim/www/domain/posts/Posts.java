@@ -1,6 +1,10 @@
 package com.kyounglim.www.domain.posts;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.kyounglim.www.domain.BaseTimeEntity;
 import com.kyounglim.www.domain.files.Files;
 import lombok.AccessLevel;
@@ -17,6 +21,7 @@ import java.util.Set;
 @Getter //Entity 에는 Getter 만 생성 Setter 대신 생성자 or Builder로 주입
 @Entity // Table과 링크될 클래스임을 나타냄
 @DynamicUpdate // 변경 필드만 반영 될 수 있도록 해줌
+@JsonNaming
 public class Posts extends BaseTimeEntity {
 
     @Id // 해당테이블의 PK 필드를 나타냄
@@ -36,8 +41,8 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
-    //@JsonIgnore // FetchType.LAZY JSON response에서 Files를 제외한다는 뜻 // 즉 Posts  데이터를 가져올때 Files 는 제외
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY ) //EAGER 즉시로딩 // LAZY 지연로딩
+    @JsonIgnore // FetchType.LAZY JSON response에서 Files를 제외한다는 뜻 // 즉 Posts  데이터를 가져올때 Files 는 제외
     @JoinColumn(name="FILES_ID")
     private Files files;
 

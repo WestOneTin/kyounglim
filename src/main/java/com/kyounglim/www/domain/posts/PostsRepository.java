@@ -34,10 +34,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     Stream<Posts> findAllDesc();
 
 
-    @Query("SELECT p, f " +
+    @Query("SELECT p " +
             "FROM Posts p " +
             "LEFT OUTER JOIN p.files f " +
-            "WHERE p.item LIKE %:data% OR p.material LIKE %:data% ") //?1 는 첫번째 parameter 자리에 있는것을 넣겠다는 뜻
+            "WHERE p.item LIKE %:data% OR p.material LIKE %:data% ") //?1 는 첫번째 parameter 자리에 있는것을 넣겠다는 뜻*/
     Page<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
 
     Page<Posts> findAllByItemContainsOrMaterialContains(String item, String material, Pageable pageable);

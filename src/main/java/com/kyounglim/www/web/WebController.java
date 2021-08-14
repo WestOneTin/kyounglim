@@ -31,7 +31,7 @@ public class WebController {
 
     @GetMapping("/")
     public String main(){
-        return "redirect:/0";
+        return "redirect:/0?data=";
     }
 
     @GetMapping("/create")
