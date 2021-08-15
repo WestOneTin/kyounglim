@@ -92,11 +92,11 @@
                         <tr>
                             <td style="vertical-align: middle;">{{id}}</td>
                             {{#if files.filename '!=' null }}
-                                <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block"
-                                                                         width="100"></td>
+                                <td style="display: none">{{files.filename}}</td>
+                                <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block" width="100"></td>
                             {{else}}
-                                    <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block"
-                                                                             width="100"></td>
+                                <td id="{{id}}" style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
+
                             {{/if}}
                             <td style="vertical-align: middle;">{{item}}</td>
                             <td style="vertical-align: middle;">{{material}}</td>
@@ -107,7 +107,7 @@
                                 <a href="/post/{{id}}" type="button" class="btn btn-success">보기</a>
                             </td>
                             <td style="vertical-align: middle;">
-                                <button type="button" id="btn-update" class="btn btn-warning">수정</button>
+                                <button type="button" id="btn-update" class="btn btn-warning" value="{{id}}" >수정</button>
                                 <button type="button" id="btn-del" class="btn btn-danger" onclick="del({{id}})" >삭제</button>
                             </td>
                         </tr>

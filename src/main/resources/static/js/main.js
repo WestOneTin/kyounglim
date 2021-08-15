@@ -23,7 +23,45 @@ let info = pageAlgo(5, cursor)
 //실제 출력하는 방법 샘플
 for(let i = info.firstBottomNumber ; i <= info.lastBottomNumber; i++){
     i == info.cursor ? $('<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>').appendTo('#pagination') : $('<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>').appendTo('#pagination');
+};
+
+var update = {
+    init : function() {
+        var _this = this;
+        $('#btn-update').on('click', function () {
+            var val = $(this);
+            var tr = val.parent().parent();
+            var td = tr.children();
+            var data = {
+                id: td.eq(0).text(),
+                item: td.eq(3).text(),
+                material: td.eq(4).text(),
+                stock: td.eq(5).text(),
+                content: td.eq(6).text(),
+                files_id: td.eq(0).text(),
+                files_filename: td.eq(1).text()
+            };
+
+            _this.save(data);
+        });
+    },
+    save : function (data) {
+        console.log(data);
+
+        /*$.ajax({
+            type: 'POST',
+            url: '/posts',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('글이 등록되었습니다.');
+            location.reload();
+        }).fail(function (error) {
+            alert(error);
+        });*/
+    }
+
 }
 
-
-
+update.init();

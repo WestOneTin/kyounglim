@@ -1,6 +1,7 @@
 package com.kyounglim.www.web;
 
 import com.kyounglim.www.domain.posts.Posts;
+import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -37,7 +39,11 @@ public class WebController {
     }
 
     @GetMapping("/create")
-    public String creatview(){
+    public String creatview(@RequestParam(required = false) PostsGetResponseDto dto, Model model){
+        if(dto != null) {
+            System.out.println("dto: " + dto);
+            model.addAttribute("post", dto);
+        }
         return "create";
     }
 

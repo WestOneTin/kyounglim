@@ -23,10 +23,15 @@ spring:
       enabled: true
     livereload:
       enabled: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 
-#server:
-  #error:
-   # include-exception: true
-   # include-stacktrace: always
-   # whitelabel:
-   #   enabled: false
+server:
+  error:
+    include-exception: true
+    include-stacktrace: always
+    whitelabel:
+      enabled: false
+    path: /error

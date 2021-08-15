@@ -8,7 +8,7 @@ function del(data) {
             dataType: "text",
             success: function () {
                 alert('삭제되었습니다.')
-                let url = "/0";
+                let url = "/";
                 location.replace(url);
             },
             error: function (error) {
