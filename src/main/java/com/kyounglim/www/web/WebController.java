@@ -1,16 +1,13 @@
 package com.kyounglim.www.web;
 
-import com.kyounglim.www.domain.posts.Posts;
-import com.kyounglim.www.dto.posts.PostsGetResponseDto;
+import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -39,8 +36,11 @@ public class WebController {
     }
 
     @GetMapping("/create")
-    public String creatview(@RequestParam(required = false) PostsGetResponseDto dto, Model model){
+    public String creatview(@RequestBody(required = false) PostUpdateResponseDto dto, Model model){
+        System.out.println("1차들어옴");
+        System.out.println("dto: " + dto);
         if(dto != null) {
+            System.out.println("들어옴" );
             System.out.println("dto: " + dto);
             model.addAttribute("post", dto);
         }

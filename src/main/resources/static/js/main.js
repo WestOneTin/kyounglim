@@ -38,30 +38,26 @@ var update = {
                 material: td.eq(4).text(),
                 stock: td.eq(5).text(),
                 content: td.eq(6).text(),
-                files_id: td.eq(0).text(),
-                files_filename: td.eq(1).text()
+                file_id: td.eq(0).text(),
+                file_filename: td.eq(1).text()
             };
 
             _this.save(data);
         });
     },
     save : function (data) {
-        console.log(data);
+        var dto = encodeURI(data);
 
-        /*$.ajax({
-            type: 'POST',
-            url: '/posts',
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
+        $.ajax({
+            type: 'GET',
+            url: '/create?dto=' + dto,
+            dataType: 'text',
         }).done(function() {
-            alert('글이 등록되었습니다.');
-            location.reload();
-        }).fail(function (error) {
-            alert(error);
-        });*/
+            alert("성공");
+        }).error(function (error) {
+            alert("error : " + error);
+        });
     }
-
 }
 
 update.init();

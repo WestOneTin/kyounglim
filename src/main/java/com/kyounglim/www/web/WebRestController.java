@@ -11,13 +11,10 @@ import com.kyounglim.www.service.PostsService;
 import com.kyounglim.www.util.MD5Generator;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.List;
 
 
 @RestController
