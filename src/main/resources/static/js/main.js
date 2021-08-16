@@ -24,6 +24,7 @@ let info = pageAlgo(5, cursor)
 for(let i = info.firstBottomNumber ; i <= info.lastBottomNumber; i++){
     i == info.cursor ? $('<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>').appendTo('#pagination') : $('<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>').appendTo('#pagination');
 };
+/*
 
 var update = {
     init : function() {
@@ -60,4 +61,4 @@ var update = {
     }
 }
 
-update.init();
+update.init();*/

@@ -90,26 +90,35 @@
                     <tbody>
                     {{#each posts}}
                         <tr>
-                            <td style="vertical-align: middle;">{{id}}</td>
-                            {{#if files.filename '!=' null }}
-                                <td style="display: none">{{files.filename}}</td>
-                                <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block" width="100"></td>
-                            {{else}}
-                                <td id="{{id}}" style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
+                            <form action="/create" id="update-create" method="get">
+                                <input type="hidden" name="id" value="{{id}}">
+                                <input type="hidden" name="item" value="{{item}}">
+                                <input type="hidden" name="material" value="{{material}}">
+                                <input type="hidden" name="stock" value="{{stock}}">
+                                <input type="hidden" name="content" value="{{content}}">
+                                <input type="hidden" name="file_id" value="{{files.id}}">
+                                <input type="hidden" name="file_filename" value="{{files.filename}}">
+                                <td style="vertical-align: middle;">{{id}}</td>
+                                {{#if files.filename '!=' null }}
+                                    <td style="display: none">{{files.filename}}</td>
+                                    <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block" width="100"></td>
+                                {{else}}
+                                    <td id="{{id}}" style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
 
-                            {{/if}}
-                            <td style="vertical-align: middle;">{{item}}</td>
-                            <td style="vertical-align: middle;">{{material}}</td>
-                            <td style="vertical-align: middle;">{{stock}}</td>
-                            <td style="vertical-align: middle;">{{content}}</td>
-                            <td style="vertical-align: middle;">{{modifiedDate}}</td>
-                            <td style="vertical-align: middle;">
-                                <a href="/post/{{id}}" type="button" class="btn btn-success">보기</a>
-                            </td>
-                            <td style="vertical-align: middle;">
-                                <button type="button" id="btn-update" class="btn btn-warning" value="{{id}}" >수정</button>
-                                <button type="button" id="btn-del" class="btn btn-danger" onclick="del({{id}})" >삭제</button>
-                            </td>
+                                {{/if}}
+                                <td style="vertical-align: middle;">{{item}}</td>
+                                <td style="vertical-align: middle;">{{material}}</td>
+                                <td style="vertical-align: middle;">{{stock}}</td>
+                                <td style="vertical-align: middle;">{{content}}</td>
+                                <td style="vertical-align: middle;">{{modifiedDate}}</td>
+                                <td style="vertical-align: middle;">
+                                    <a href="/post/{{id}}" type="button" class="btn btn-success">보기</a>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <button type="submit" id="btn-update" class="btn btn-warning" >수정</button>
+                                    <button type="button" id="btn-del" class="btn btn-danger" onclick="del({{id}})" >삭제</button>
+                                </td>
+                            </form>
                         </tr>
                     {{/each}}
                     </tbody>

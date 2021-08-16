@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -36,12 +37,17 @@ public class WebController {
     }
 
     @GetMapping("/create")
-    public String creatview(@RequestBody(required = false) PostUpdateResponseDto dto, Model model){
-        System.out.println("1차들어옴");
-        System.out.println("dto: " + dto);
-        if(dto != null) {
-            System.out.println("들어옴" );
-            System.out.println("dto: " + dto);
+    public String creatview(@RequestParam(required = false) Long id, @RequestParam(required = false) String item, @RequestParam(required = false) String material, @RequestParam(required = false) Integer stock, @RequestParam(required = false) String content, @RequestParam(required = false) Long file_id, @RequestParam(required = false) String file_filename, Model model){
+        if(id != null) {
+        PostUpdateResponseDto dto = new PostUpdateResponseDto();
+        dto.setId(id);
+        dto.setItem(item);
+        dto.setMaterial(material);
+        dto.setStock(stock);
+        dto.setContent(content);
+        dto.setFile_id(file_id);
+        dto.setFile_filename(file_filename);
+            System.out.println("dto : " + dto);
             model.addAttribute("post", dto);
         }
         return "create";
