@@ -118,7 +118,7 @@ public class WebRestController {
     }
 
     @PutMapping("/update/{id}")
-    public Posts update(@PathVariable("id") Long id , @RequestParam(required = false, name = "file") MultipartFile file,  PostUpdateResponseDto dto) {
+    public Posts update(@PathVariable("id") Long id , PostUpdateResponseDto dto) {
 
         return postsService.update(id, dto);
     }
