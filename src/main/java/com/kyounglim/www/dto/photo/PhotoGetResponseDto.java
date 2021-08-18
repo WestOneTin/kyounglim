@@ -1,16 +1,16 @@
-package com.kyounglim.www.dto.file;
+package com.kyounglim.www.dto.photo;
 
-import com.kyounglim.www.domain.files.Files;
+import com.kyounglim.www.domain.photo.Photo;
 import lombok.Getter;
 
 @Getter
-public class FileGetResponseDto {
+public class PhotoGetResponseDto {
     private Long id;
     private String origFilename;
     private String filename;
     private String filePath;
 
-    public FileGetResponseDto(Files entity){
+    public PhotoGetResponseDto(Photo entity){
         id = entity.getId();
         origFilename = entity.getOrigFilename();
         filename = entity.getFilename();

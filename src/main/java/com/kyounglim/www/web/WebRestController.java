@@ -1,12 +1,13 @@
 package com.kyounglim.www.web;
 
-import com.kyounglim.www.domain.files.Files;
+import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.posts.Posts;
-import com.kyounglim.www.dto.file.FileGetResponseDto;
-import com.kyounglim.www.dto.file.FileSaveRequestDto;
+import com.kyounglim.www.dto.photo.PhotoGetResponseDto;
+import com.kyounglim.www.dto.photo.PhotoSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
+import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
-import com.kyounglim.www.service.FileService;
+import com.kyounglim.www.service.PhotoService;
 import com.kyounglim.www.service.PostsService;
 import com.kyounglim.www.util.MD5Generator;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class WebRestController {
 
     private PostsService postsService;
 
-    private FileService fileService;
+    private PhotoService photoService;
 
     @GetMapping("/hello")
     public String hello(){
@@ -36,16 +37,6 @@ public class WebRestController {
     @GetMapping("/get/{page}")
     public Page<Posts> list(@PathVariable int page){
         return postsService.findAll(page);
-    }
-
-    // Test file getById
-    @GetMapping("/getfile/{id}")
-    public FileGetResponseDto filelist(@PathVariable("id") Long id){ return fileService.getFile(id); }
-
-    // Test post
-    @GetMapping ("/getpost/{id}")
-    public PostsGetResponseDto get(@PathVariable("id") Long id){
-        return postsService.getById(id);
     }
 
     // Test JPA search
@@ -74,12 +65,12 @@ public class WebRestController {
             String filePath = savePath + "\\" + filename;
             file.transferTo(new File(filePath));
 
-            FileSaveRequestDto filedto = new FileSaveRequestDto();
+            PhotoSaveRequestDto filedto = new PhotoSaveRequestDto();
             filedto.setOrigFilename(origFilename);
             filedto.setFilename(filename);
             filedto.setFilePath(filePath);
 
-            Long fileId = fileService.saveFile(filedto);
+            Long fileId = photoService.saveFile(filedto);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -100,7 +91,7 @@ public class WebRestController {
                 /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
                 /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
                 if(filename.equals("d41d8cd98f00b204e9800998ecf8427e.jpg")){
-                    Files files = Files.builder().origFilename(null).filename(null).filePath(null).build();
+                    Photo files = Photo.builder().origFilename(null).filename(null).filePath(null).build();
                     Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(files).build();
                     return postsService.save(posts);
                 }else{
@@ -115,8 +106,8 @@ public class WebRestController {
                     }
                     String filePath = savePath + "\\" + filename;
                     file.transferTo(new File(filePath));
-                    Files files = Files.builder().origFilename(origFilename).filename(filename).filePath(savePath).build();
-                    Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(files).build();
+                    Photo photo = Photo.builder().origFilename(origFilename).filename(filename).filePath(savePath).build();
+                    Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).files(photo).build();
                     return postsService.save(posts);
                 }
 
@@ -126,9 +117,10 @@ public class WebRestController {
         }
     }
 
-    @PutMapping("/put/{id}")
-    public Posts putPost(@PathVariable("id") Long id , @RequestBody PostSaveRequestDto dto) {
-           return postsService.put(id, dto);
+    @PutMapping("/update/{id}")
+    public Posts update(@PathVariable("id") Long id , @RequestParam(required = false, name = "file") MultipartFile file,  PostUpdateResponseDto dto) {
+
+        return postsService.update(id, dto);
     }
 
     @PutMapping("/put-stock/{id}")

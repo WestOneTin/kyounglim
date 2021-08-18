@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -15,8 +16,7 @@ public class PostUpdateResponseDto {
     private String material;
     private int stock;
     private String content;
-    private Long file_id;
-    private String file_filename;
+    private MultipartFile file;
 
     public PostUpdateResponseDto(Posts entity) {
         id = entity.getId();
@@ -24,7 +24,5 @@ public class PostUpdateResponseDto {
         material = entity.getMaterial();
         stock = entity.getStock();
         content = entity.getContent();
-        file_id = entity.getFiles().getId();
-        file_filename = entity.getFiles().getFilename();
     }
 }

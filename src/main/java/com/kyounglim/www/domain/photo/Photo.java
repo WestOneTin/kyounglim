@@ -1,6 +1,5 @@
-package com.kyounglim.www.domain.files;
+package com.kyounglim.www.domain.photo;
 
-import com.kyounglim.www.domain.posts.Posts;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,12 +7,11 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Files {
+public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FILES_ID", nullable = false)
-
+    @Column(name = "PHOTO_ID", nullable = false)
     private Long id;
 
     @Column
@@ -26,7 +24,7 @@ public class Files {
     private String filePath;
 
     @Builder
-    public Files(Long id, String origFilename, String filename, String filePath) {
+    public Photo(Long id, String origFilename, String filename, String filePath) {
         this.id = id;
         this.origFilename = origFilename;
         this.filename = filename;

@@ -1,6 +1,6 @@
 package com.kyounglim.www.dto.posts;
 
-import com.kyounglim.www.domain.files.Files;
+import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.posts.Posts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class PostSaveRequestDto {
     private String material;
     private int stock;
     private String content;
-    private Files files;
+    private Photo files;
 
     public Posts toEntity(){
         return Posts.builder()

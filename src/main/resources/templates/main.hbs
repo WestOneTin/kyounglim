@@ -92,12 +92,6 @@
                         <tr>
                             <form action="/create" id="update-create" method="get">
                                 <input type="hidden" name="id" value="{{id}}">
-                                <input type="hidden" name="item" value="{{item}}">
-                                <input type="hidden" name="material" value="{{material}}">
-                                <input type="hidden" name="stock" value="{{stock}}">
-                                <input type="hidden" name="content" value="{{content}}">
-                                <input type="hidden" name="file_id" value="{{files.id}}">
-                                <input type="hidden" name="file_filename" value="{{files.filename}}">
                                 <td style="vertical-align: middle;">{{id}}</td>
                                 {{#if files.filename '!=' null }}
                                     <td style="display: none">{{files.filename}}</td>

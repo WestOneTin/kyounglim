@@ -4,6 +4,7 @@ package com.kyounglim.www.service;
 import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.domain.posts.PostsRepository;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
+import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,10 +48,9 @@ public class PostsService {
     }
 
     @Transactional
-    public PostsGetResponseDto getById(Long id){
+    public Posts getById(Long id){
         Posts post = postsRepository.getById(id);
-        PostsGetResponseDto dto = new PostsGetResponseDto(post);
-        return dto;
+        return post;
     }
 
 
@@ -62,7 +62,7 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts put(Long id, PostSaveRequestDto dto) {
+    public Posts update(Long id, PostUpdateResponseDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         post.update(dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); // persistence context 영속성 컨텍스트로 인해 업데이트 성공
         return post;

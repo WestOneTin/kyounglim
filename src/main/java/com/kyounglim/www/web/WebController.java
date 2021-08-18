@@ -1,6 +1,8 @@
 package com.kyounglim.www.web;
 
+import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
+import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PostsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -37,18 +39,10 @@ public class WebController {
     }
 
     @GetMapping("/create")
-    public String creatview(@RequestParam(required = false) Long id, @RequestParam(required = false) String item, @RequestParam(required = false) String material, @RequestParam(required = false) Integer stock, @RequestParam(required = false) String content, @RequestParam(required = false) Long file_id, @RequestParam(required = false) String file_filename, Model model){
+    public String creatview(@RequestParam(required = false) Long id, Model model){
         if(id != null) {
-        PostUpdateResponseDto dto = new PostUpdateResponseDto();
-        dto.setId(id);
-        dto.setItem(item);
-        dto.setMaterial(material);
-        dto.setStock(stock);
-        dto.setContent(content);
-        dto.setFile_id(file_id);
-        dto.setFile_filename(file_filename);
-            System.out.println("dto : " + dto);
-            model.addAttribute("post", dto);
+            Posts post = postsService.getById(id);
+            model.addAttribute("post", post);
         }
         return "create";
     }
@@ -56,7 +50,8 @@ public class WebController {
 
     @GetMapping("/post/{id}")
     public String post(@PathVariable("id") Long id, Model model){
-        model.addAttribute("post", postsService.getById(id));
+        Posts post = postsService.getById(id);
+        model.addAttribute("post", post);
         return "post";
     }
 

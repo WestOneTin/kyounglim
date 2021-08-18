@@ -1,6 +1,7 @@
-package com.kyounglim.www.dto.file;
+package com.kyounglim.www.dto.photo;
 
-import com.kyounglim.www.domain.files.Files;
+import com.kyounglim.www.domain.photo.Photo;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,14 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FileSaveRequestDto {
+public class PhotoSaveRequestDto {
     private Long id;
     private String origFilename;
     private String filename;
     private String filePath;
 
-    public Files toEntity(){
-        return Files.builder()
+    public Photo toEntity(){
+        return Photo.builder()
                 .id(id)
                 .origFilename(origFilename)
                 .filename(filename)

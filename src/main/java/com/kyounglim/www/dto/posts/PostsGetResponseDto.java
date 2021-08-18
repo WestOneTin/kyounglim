@@ -1,6 +1,6 @@
 package com.kyounglim.www.dto.posts;
 
-import com.kyounglim.www.domain.files.Files;
+import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.posts.Posts;
 import lombok.Getter;
 
@@ -21,7 +21,7 @@ public class PostsGetResponseDto{
     private int stock;
     private String content;
     private String modifiedDate;
-    private Files files;
+    private Photo files;
 
     public PostsGetResponseDto(Posts entity) {
         id = entity.getId();
