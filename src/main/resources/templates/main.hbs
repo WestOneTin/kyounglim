@@ -93,9 +93,9 @@
                             <form action="/create" id="update-create" method="get">
                                 <input type="hidden" name="id" value="{{id}}">
                                 <td style="vertical-align: middle;">{{id}}</td>
-                                {{#if files.filename '!=' null }}
-                                    <td style="display: none">{{files.filename}}</td>
-                                    <td style="vertical-align: middle;"><img src="img/{{files.filename}}" class="img-responsive img-rounded center-block" width="100"></td>
+                                {{#if photo '!=' null }}
+                                    <td style="display: none">{{photo.filename}}</td>
+                                    <td style="vertical-align: middle;"><img src="img/{{photo.filename}}" class="img-responsive img-rounded center-block" width="100"></td>
                                 {{else}}
                                     <td id="{{id}}" style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
 

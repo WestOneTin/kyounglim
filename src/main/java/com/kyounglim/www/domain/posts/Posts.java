@@ -37,29 +37,23 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY ) //EAGER 즉시로딩 // LAZY 지연로딩
-    @JsonIgnore // FetchType.LAZY JSON response에서 Files를 제외한다는 뜻 // 즉 Posts  데이터를 가져올때 Files 는 제외
-    @JoinColumn(name="FILES_ID")
-    private Photo files;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER ) //EAGER 즉시로딩 // LAZY 지연로딩
+    //@JsonIgnore // FetchType.LAZY JSON response에서 Files를 제외한다는 뜻 // 즉 Posts  데이터를 가져올때 Files 는 제외
+    @JoinColumn(name="PHOTO_ID")
+    private Photo photo;
 
-    public void update(String item, String material, int stock, String content) {
-        this.item = item;
-        this.material = material;
-        this.stock = stock;
-        this.content = content;
-    }
 
     public void putStock(int stock){
         this.stock = stock;
     }
 
     @Builder
-    public Posts(Long id, String item, String material, int stock, String content, Photo files) {
+    public Posts(Long id, String item, String material, int stock, String content, Photo photo) {
         this.id = id;
         this.item = item;
         this.material = material;
         this.stock = stock;
         this.content = content;
-        this.files = files;
+        this.photo = photo;
     }
 }

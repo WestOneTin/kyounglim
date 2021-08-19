@@ -12,16 +12,21 @@ import javax.transaction.Transactional;
 @AllArgsConstructor
 @Service
 public class PhotoService {
-    private PhotoRepository fileRepository;
+    private PhotoRepository photoRepository;
 
     @Transactional
     public Long saveFile(PhotoSaveRequestDto dto){
-        return fileRepository.save(dto.toEntity()).getId();
+        return photoRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
     public Photo getFile(Long id){
-        return fileRepository.findById(id).get();
-
+        return photoRepository.findById(id).get();
     }
+
+    @Transactional
+    public Long deletePhoto(Long id){
+        return photoRepository.deletePhotoById(id);
+    }
+
 }

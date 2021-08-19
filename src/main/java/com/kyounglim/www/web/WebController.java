@@ -19,12 +19,6 @@ public class WebController {
 
     private PostsService postsService;
 
-    /*@GetMapping("/{page}")
-    public String table(Model model, @PathVariable("page") int page) {
-        model.addAttribute("posts", postsService.findAll(page));
-        return "main";
-    }*/
-
     @GetMapping("/{page}")
     public String search(String data, @PathVariable("page") int page, Model model){
         model.addAttribute("posts", postsService.search(data, page));

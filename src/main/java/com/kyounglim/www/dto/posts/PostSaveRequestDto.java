@@ -21,7 +21,7 @@ public class PostSaveRequestDto {
     private String material;
     private int stock;
     private String content;
-    private Photo files;
+    private Photo photo;
 
     public Posts toEntity(){
         return Posts.builder()
@@ -29,7 +29,7 @@ public class PostSaveRequestDto {
                 .material(material)
                 .stock(stock)
                 .content(content)
-                .files(files)
+                .photo(photo)
                 .build();
     }
 

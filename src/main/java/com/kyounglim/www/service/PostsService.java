@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +31,6 @@ public class PostsService {
         return postsRepository.findAll(PageRequest.of(page, 10, Sort.by("id").descending()));
     }
 
-    @Transactional
-    public Page<Posts> searchtest(String item, String material, int page){
-        return postsRepository.findAllByItemContainsOrMaterialContains(item, material, PageRequest.of(page, 10, Sort.by("id").descending()));
-    }
 
     /*@Transactional(readOnly = true)
     public List<PostsGetResponseDto> findAllDesc(final Pageable pageable) {
@@ -62,9 +59,9 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts update(Long id, PostUpdateResponseDto dto) {
+    public Posts update(Long id, PostSaveRequestDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        post.update(dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent()); // persistence context 영속성 컨텍스트로 인해 업데이트 성공
+
         return post;
     }
 
