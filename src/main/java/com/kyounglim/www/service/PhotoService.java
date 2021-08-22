@@ -20,7 +20,7 @@ public class PhotoService {
     }
 
     @Transactional
-    public Photo getFile(Long id){
+    public Photo findById(Long id){
         return photoRepository.findById(id).get();
     }
 

@@ -16,7 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor // 기본 생성자  생성
 public class PostSaveRequestDto {
 
-    private Long id;
     private String item;
     private String material;
     private int stock;

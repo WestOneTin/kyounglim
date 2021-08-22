@@ -42,18 +42,19 @@ public class Posts extends BaseTimeEntity {
     @JoinColumn(name="PHOTO_ID")
     private Photo photo;
 
-
-    public void putStock(int stock){
-        this.stock = stock;
-    }
-
     @Builder
-    public Posts(Long id, String item, String material, int stock, String content, Photo photo) {
-        this.id = id;
+    public Posts(String item, String material, int stock, String content, Photo photo) {
         this.item = item;
         this.material = material;
         this.stock = stock;
         this.content = content;
         this.photo = photo;
+    }
+
+    public void update(Posts posts){
+        this.item = posts.getItem();
+        this.material = posts.getMaterial();
+        this.stock = posts.getStock();
+        this.content = posts.getContent();
     }
 }

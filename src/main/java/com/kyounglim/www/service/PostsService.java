@@ -1,6 +1,8 @@
 package com.kyounglim.www.service;
 
 
+import com.kyounglim.www.domain.photo.Photo;
+import com.kyounglim.www.domain.photo.PhotoRepository;
 import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.domain.posts.PostsRepository;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
@@ -24,20 +26,12 @@ import java.util.Optional;
 public class PostsService {
 
     private final PostsRepository postsRepository;
-
+    private final PhotoRepository photoRepository;
 
     @Transactional(readOnly = true)
     public Page<Posts> findAll(int page){
         return postsRepository.findAll(PageRequest.of(page, 10, Sort.by("id").descending()));
     }
-
-
-    /*@Transactional(readOnly = true)
-    public List<PostsGetResponseDto> findAllDesc(final Pageable pageable) {
-        return postsRepository.findAllDesc()
-                .map(PostsGetResponseDto::new)
-                .collect(Collectors.toList());
-    }*/
 
     @Transactional
     public Page<Posts> search(String data, int page){
@@ -50,26 +44,19 @@ public class PostsService {
         return post;
     }
 
-
-
-
     @Transactional
     public Long save(Posts posts){
         return postsRepository.save(posts).getId();
     }
 
     @Transactional
-    public Posts update(Long id, PostSaveRequestDto dto) {
+    public Posts update(Long id, PostUpdateResponseDto dto, Photo photo) {
         Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        Posts setPost = Posts.builder().item(dto.getItem()).material(dto.getMaterial()).stock(dto.getStock()).content(dto.getContent()).build();
+        post.update(setPost);
+        photoRepository.save(photo);
 
         return post;
-    }
-
-
-    @Transactional
-    public void putStock(Long id, int stock){
-        Posts post = postsRepository.getById(id);
-        post.putStock(stock);
     }
 
     @Transactional

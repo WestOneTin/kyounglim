@@ -17,7 +17,6 @@ public class PhotoSaveRequestDto {
 
     public Photo toEntity(){
         return Photo.builder()
-                .id(id)
                 .origFilename(origFilename)
                 .filename(filename)
                 .filePath(filePath)
