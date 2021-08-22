@@ -36,7 +36,7 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER ) //EAGER 즉시로딩 // LAZY 지연로딩
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩
     //@JsonIgnore // FetchType.LAZY JSON response에서 Files를 제외한다는 뜻 // 즉 Posts  데이터를 가져올때 Files 는 제외
     @JoinColumn(name="PHOTO_ID")
     private Photo photo;
@@ -55,5 +55,6 @@ public class Posts extends BaseTimeEntity {
         this.material = posts.getMaterial();
         this.stock = posts.getStock();
         this.content = posts.getContent();
+        this.photo = posts.getPhoto();
     }
 }

@@ -24,15 +24,15 @@ public class Photo {
     @Column
     private String filePath;
 
-    @Column(name = "POSTS_ID")
-    private Long postsId;
+    /*@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "photo")
+    @JoinColumn(name="POSTS_ID")
+    private Posts posts;*/
 
     @Builder
-    public Photo(String origFilename, String filename, String filePath, Long postsId) {
+    public Photo(String origFilename, String filename, String filePath) {
         this.origFilename = origFilename;
         this.filename = filename;
         this.filePath = filePath;
-        this.postsId = postsId;
     }
 
 }

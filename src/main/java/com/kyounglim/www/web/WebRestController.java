@@ -37,15 +37,16 @@ public class WebRestController {
     }
 
     @PutMapping("/update/{id}")
-    public Posts update(@PathVariable("id") Long id , @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
-        Optional<Photo> dbPhoto = photoService.findById(id); // DB에 파일 가져오기
+    public void update(@PathVariable("id") Long id , @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
+        Posts post = postsService.getById(id);
         Photo photo = null;
-        System.out.println("dbPhoto : " + dbPhoto);
+        //Optional<Photo> dbPhoto = photoService.findById(id); // DB에 파일 가져오기
         // DB에 파일이 저장 되어 있는지
-        if(dbPhoto.equals(Optional.empty())){ // isEmpty 대신 "" or null 로 DB에 없다는것 체크
+        if(post.getPhoto() == null){
             System.out.println("없음");
             if(!file.isEmpty()){
                 photo = fileHandler.parseFileInfo(file);
+                System.out.println("photo : " + photo.getFilename());
             }
         }else { // DB에 하나 이상 있으면
             System.out.println("하나 있음");
@@ -58,9 +59,8 @@ public class WebRestController {
 
             }
         }
-        Posts post = postsService.update(id, dto, photo);
-
-        return post;
+        System.out.println("photo : " + photo.getFilename());
+        postsService.update(id, dto, photo);
     }
 
     @DeleteMapping("/del/{id}")

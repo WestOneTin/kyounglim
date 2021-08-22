@@ -74,8 +74,6 @@ public class FileHandler {
             // 파일 권한 설정(쓰기, 읽기)
             file.setWritable(true);
             file.setReadable(true);
-        }else{
-            photo = Photo.builder().filename(null).origFilename(null).filePath(null).build();
         }
         System.out.println("FileHandler Result : " + photo);
         return photo;
