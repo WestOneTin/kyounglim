@@ -2,12 +2,12 @@ package com.kyounglim.www.service;
 
 import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.photo.PhotoRepository;
-import com.kyounglim.www.dto.photo.PhotoGetResponseDto;
 import com.kyounglim.www.dto.photo.PhotoSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -20,8 +20,8 @@ public class PhotoService {
     }
 
     @Transactional
-    public Photo findById(Long id){
-        return photoRepository.findById(id).get();
+    public Optional<Photo> findById(Long id){
+        return photoRepository.findById(id);
     }
 
     @Transactional

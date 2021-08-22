@@ -17,7 +17,6 @@ import javax.persistence.*;
 @Getter //Entity 에는 Getter 만 생성 Setter 대신 생성자 or Builder로 주입
 @Entity // Table과 링크될 클래스임을 나타냄
 @DynamicUpdate // 변경 필드만 반영 될 수 있도록 해줌
-@JsonNaming
 public class Posts extends BaseTimeEntity {
 
     @Id // 해당테이블의 PK 필드를 나타냄

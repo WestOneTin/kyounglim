@@ -16,7 +16,6 @@ public class PostUpdateResponseDto {
     private String material;
     private int stock;
     private String content;
-    private MultipartFile file;
 
     public PostUpdateResponseDto(Posts entity) {
         id = entity.getId();
