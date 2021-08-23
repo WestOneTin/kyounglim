@@ -10,10 +10,7 @@ import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +32,7 @@ public class PostsService {
     }
 
     @Transactional
-    public Page<Posts> search(String data, int page){
+    public List<Posts> search(String data, int page){
         return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending()));
     }
 

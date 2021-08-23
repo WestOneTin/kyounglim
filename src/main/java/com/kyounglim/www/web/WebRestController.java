@@ -9,9 +9,11 @@ import com.kyounglim.www.service.PostsService;
 import com.kyounglim.www.util.FileHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,7 +26,7 @@ public class WebRestController {
     private FileHandler fileHandler;
 
     @GetMapping("/search/{page}")
-    public Page<Posts> search(String data, @PathVariable("page") int page){
+    public List<Posts> search(String data, @PathVariable("page") int page){
         return postsService.search(data, page);
     }
 

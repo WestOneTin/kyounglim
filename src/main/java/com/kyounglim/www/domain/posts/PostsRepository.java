@@ -19,11 +19,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     @Query("SELECT p " +
             "FROM Posts p  " +
-            "LEFT OUTER JOIN p.photo f " +
-            "ON p.photo.id = f.id " +
+            "LEFT OUTER JOIN FETCH p.photo f " +
             "WHERE p.item LIKE %:data% OR p.material LIKE %:data% ") //?1 는 첫번째 parameter 자리에 있는것을 넣겠다는 뜻*/
     //select * from posts p left join photo t on p.photo_id = t.photo_id
-    Page<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
+    List<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
 
     void deleteById(Long id);
 
