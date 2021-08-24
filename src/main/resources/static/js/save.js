@@ -12,10 +12,10 @@ var create = {
         $.ajax({
             type: 'POST',
             url: '/save',
-            enctype : 'multipart/form-data',
+            enctype: 'multipart/form-data',
             data: data,
-            contentType : false,
-            processData : false,
+            contentType: false,
+            processData: false,
             success: function (data) {
                 alert('글이 등록되었습니다.');
                 let url = "/post/" + data;

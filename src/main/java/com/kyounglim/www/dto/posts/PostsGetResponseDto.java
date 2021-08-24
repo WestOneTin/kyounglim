@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 
 @Getter
-public class PostsGetResponseDto{
+public class PostsGetResponseDto {
     private Long id;
     private String item;
     private String material;
@@ -35,7 +35,7 @@ public class PostsGetResponseDto{
     /**
      * Java 8 버전
      */
-    private String toStringDateTime(LocalDateTime localDateTime){
+    private String toStringDateTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return Optional.ofNullable(localDateTime)
                 .map(formatter::format)

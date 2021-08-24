@@ -8,8 +8,6 @@ import java.util.Optional;
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
-    //Photo findById()
-
     Long deletePhotoById(Long id);
 
 }

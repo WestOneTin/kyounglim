@@ -28,37 +28,37 @@ public class PostsService {
 
 
     @Transactional
-    public List<Posts> search(String data, int page){
+    public List<Posts> search(String data, int page) {
         return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending()));
     }
 
     @Transactional
-    public Integer totaldata(String data){
+    public Integer totaldata(String data) {
         return postsRepository.countByItemContainingOrMaterialContaining(data, data);
     }
 
     @Transactional
-    public Posts getById(Long id){
+    public Posts getById(Long id) {
         return postsRepository.getById(id);
     }
 
     @Transactional
-    public Long save(Posts posts){
+    public Long save(Posts posts) {
         return postsRepository.save(posts).getId();
     }
 
     @Transactional
     public Posts update(Long id, PostUpdateResponseDto dto, Photo photo) {
-        Posts post = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        Posts post = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         Posts setPost = Posts.builder().item(dto.getItem()).material(dto.getMaterial()).stock(dto.getStock()).content(dto.getContent()).photo(photo).build();
         post.update(setPost);
         return post;
     }
 
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         Optional<Posts> get_post = postsRepository.findById(id);
-        get_post.ifPresent(post ->{
+        get_post.ifPresent(post -> {
             postsRepository.deleteById(post.getId());
         });
     }

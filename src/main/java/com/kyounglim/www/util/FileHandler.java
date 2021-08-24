@@ -15,13 +15,13 @@ public class FileHandler {
 
     private final PhotoService photoService;
 
-    public FileHandler(PhotoService photoService){
+    public FileHandler(PhotoService photoService) {
         this.photoService = photoService;
     }
 
-    public Photo parseFileInfo(MultipartFile multipartFile) throws Exception{
+    public Photo parseFileInfo(MultipartFile multipartFile) throws Exception {
         Photo photo = null;
-        if(!multipartFile.isEmpty()){ // 파일이 존재할경우
+        if (!multipartFile.isEmpty()) { // 파일이 존재할경우
             // 파일명을 업로드 한 날짜로 변환하여 저장
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -83,10 +83,10 @@ public class FileHandler {
             File file = new File(path);
 
             // 디렉터리가 존재하지 않을 경우
-            if(!file.exists()) {
+            if (!file.exists()) {
                 boolean wasSuccessful = file.mkdirs();
                 // 디렉터리 생성에 실패했을 경우
-                if(!wasSuccessful) {
+                if (!wasSuccessful) {
                     System.out.println("file: was not successful");
                 }
             }
@@ -95,13 +95,12 @@ public class FileHandler {
             String contentType = multipartFile.getContentType();
 
             // 확장자명이 존재하지 않을 경우 처리 x
-            if(ObjectUtils.isEmpty(contentType)) {
+            if (ObjectUtils.isEmpty(contentType)) {
                 return null;
-            }
-            else {  // 확장자가 jpeg, png인 파일들만 받아서 처리
-                if(contentType.contains("image/jpeg"))
+            } else {  // 확장자가 jpeg, png인 파일들만 받아서 처리
+                if (contentType.contains("image/jpeg"))
                     originalFileExtension = ".jpg";
-                else if(contentType.contains("image/png"))
+                else if (contentType.contains("image/png"))
                     originalFileExtension = ".png";
                 else  // 다른 확장자일 경우 처리 x
                     return null;

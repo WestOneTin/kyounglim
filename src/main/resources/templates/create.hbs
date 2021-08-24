@@ -59,11 +59,13 @@
                     {{#if post '!=' null}}<input type="hidden" name="file_id" value="{{post.id}}">{{/if}}
                     <div class="form-group">
                         <label for="item">모델명</label>
-                        <input name="item" type="text" class="form-control" id="item" placeholder="모델명" {{#if post '!=' null}}value="{{post.item}}" {{/if}}>
+                        <input name="item" type="text" class="form-control" id="item" placeholder="모델명" {{#if post '!='
+                                                                                                              null}}value="{{post.item}}" {{/if}}>
                     </div>
                     <div class="form-group">
                         <label for="material">소재</label>
-                        <input name="material" type="text" class="form-control" id="material" placeholder="소재" {{#if post '!=' null}}value="{{post.material}}" {{/if}}>
+                        <input name="material" type="text" class="form-control" id="material" placeholder="소재" {{#if
+                                post '!=' null}}value="{{post.material}}" {{/if}}>
                     </div>
                     <div class="form-group">
                         <label for="material">재고량</label>
@@ -72,7 +74,8 @@
                     </div>
                     <div class="form-group">
                         <label for="material">비고</label>
-                        <textarea name="content" class="form-control" rows="3" id="content" >{{#if post '!=' null}}{{post.content}}{{/if}}</textarea>
+                        <textarea name="content" class="form-control" rows="3" id="content">{{#if post '!='
+                                                                                                  null}}{{post.content}}{{/if}}</textarea>
                     </div>
                     <div class="form-group" id="test1234">
                         <label for="InputFile">사진 업로드</label>

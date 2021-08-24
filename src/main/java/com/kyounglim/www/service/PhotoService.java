@@ -15,17 +15,17 @@ public class PhotoService {
     private PhotoRepository photoRepository;
 
     @Transactional
-    public Long saveFile(PhotoSaveRequestDto dto){
+    public Long saveFile(PhotoSaveRequestDto dto) {
         return photoRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
-    public Optional<Photo> findById(Long id){
+    public Optional<Photo> findById(Long id) {
         return photoRepository.findById(id);
     }
 
     @Transactional
-    public Long deletePhoto(Long id){
+    public Long deletePhoto(Long id) {
         return photoRepository.deletePhotoById(id);
     }
 

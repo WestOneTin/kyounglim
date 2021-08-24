@@ -3,17 +3,17 @@ var globalCurrentPage = $('#get-page').val(); // 현재페이지
 let totalData = $('#totaldata').val(); // 게시글 전체 갯수
 let dataPerPage = 10;
 let pageCount = 10;
-let totalPage ;
+let totalPage;
 
-$(document).ready(function (){
+$(document).ready(function () {
     paging(totalData, dataPerPage, pageCount, 1);
 });
 
-function paging(totalData, dataPerPage, pageCoutn, currentPage){
+function paging(totalData, dataPerPage, pageCoutn, currentPage) {
     totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
 
-    if(totalPage<pageCount){
-        pageCount=totalPage;
+    if (totalPage < pageCount) {
+        pageCount = totalPage;
     }
 
     let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹

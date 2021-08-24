@@ -10,7 +10,7 @@ public class PhotoGetResponseDto {
     private String filename;
     private String filePath;
 
-    public PhotoGetResponseDto(Photo entity){
+    public PhotoGetResponseDto(Photo entity) {
         id = entity.getId();
         origFilename = entity.getOrigFilename();
         filename = entity.getFilename();

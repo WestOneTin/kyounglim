@@ -22,7 +22,7 @@ public class PostSaveRequestDto {
     private String content;
     private Photo photo;
 
-    public Posts toEntity(){
+    public Posts toEntity() {
         return Posts.builder()
                 .item(item)
                 .material(material)

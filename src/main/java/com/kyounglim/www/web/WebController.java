@@ -20,7 +20,7 @@ public class WebController {
     private PostsService postsService;
 
     @GetMapping("/{page}")
-    public String search(String data, @PathVariable("page") int page, Model model){
+    public String search(String data, @PathVariable("page") int page, Model model) {
         model.addAttribute("posts", postsService.search(data, page));
         model.addAttribute("totaldata", postsService.totaldata(data));
         model.addAttribute("data", data);
@@ -29,13 +29,13 @@ public class WebController {
     }
 
     @GetMapping("/")
-    public String main(){
+    public String main() {
         return "redirect:/0?data=";
     }
 
     @GetMapping("/create")
-    public String creatview(@RequestParam(required = false) Long id, Model model){
-        if(id != null) {
+    public String creatview(@RequestParam(required = false) Long id, Model model) {
+        if (id != null) {
             Posts post = postsService.getById(id);
             model.addAttribute("post", post);
         }
@@ -44,7 +44,7 @@ public class WebController {
 
 
     @GetMapping("/post/{id}")
-    public String post(@PathVariable("id") Long id, Model model){
+    public String post(@PathVariable("id") Long id, Model model) {
         Posts post = postsService.getById(id);
         model.addAttribute("post", post);
         return "post";

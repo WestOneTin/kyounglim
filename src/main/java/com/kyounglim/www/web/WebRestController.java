@@ -26,40 +26,41 @@ public class WebRestController {
     private FileHandler fileHandler;
 
     @GetMapping("/search/{page}")
-    public List<Posts> search(String data, @PathVariable("page") int page){
+    public List<Posts> search(String data, @PathVariable("page") int page) {
         return postsService.search(data, page);
     }
 
     @GetMapping("/totaldata/{data}")
-    public Integer totaldata(@PathVariable("data") String data){
+    public Integer totaldata(@PathVariable("data") String data) {
         return postsService.totaldata(data);
     }
+
     @PostMapping("/save")
-    public Long savePost(@RequestParam(required = false, name = "file") MultipartFile file, PostSaveRequestDto postdto) throws Exception{
+    public Long savePost(@RequestParam(required = false, name = "file") MultipartFile file, PostSaveRequestDto postdto) throws Exception {
         Photo photo = fileHandler.parseFileInfo(file);
         Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).photo(photo).build();
         return postsService.save(posts);
     }
 
     @PutMapping("/update/{id}")
-    public void update(@PathVariable("id") Long id , @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
+    public void update(@PathVariable("id") Long id, @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
         Posts post = postsService.getById(id);
         Photo photo = null;
         //Optional<Photo> dbPhoto = photoService.findById(id); // DB에 파일 가져오기
         // DB에 파일이 저장 되어 있는지
-        if(post.getPhoto() == null){
+        if (post.getPhoto() == null) {
             System.out.println("없음");
-            if(!file.isEmpty()){
+            if (!file.isEmpty()) {
                 photo = fileHandler.parseFileInfo(file);
                 System.out.println("photo : " + photo.getFilename());
             }
-        }else { // DB에 하나 이상 있으면
+        } else { // DB에 하나 이상 있으면
             System.out.println("하나 있음");
-            if(file.isEmpty()){ // 전달받은 파일이 없다면
+            if (file.isEmpty()) { // 전달받은 파일이 없다면
                 System.out.println("삭제하러옴");
                 photoService.deletePhoto(id); // DB에 있는 파일 삭제
                 photo = fileHandler.parseFileInfo(file);
-            }else{ // 전달된 파일이 존재한다면
+            } else { // 전달된 파일이 존재한다면
                 photo = fileHandler.parseFileInfo(file);
 
             }
@@ -69,7 +70,7 @@ public class WebRestController {
     }
 
     @DeleteMapping("/del/{id}")
-    public void deletePost(@PathVariable("id") Long id){
+    public void deletePost(@PathVariable("id") Long id) {
         postsService.delete(id);
     }
 }
