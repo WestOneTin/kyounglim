@@ -24,8 +24,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     //select * from posts p left join photo t on p.photo_id = t.photo_id
     List<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
 
+    Integer countByItemContainingOrMaterialContaining(String data1, String data2);
+
     void deleteById(Long id);
 
-    Optional<Posts> findByPhoto(Long id);
 
 }

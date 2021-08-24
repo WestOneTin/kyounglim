@@ -22,6 +22,7 @@ public class WebController {
     @GetMapping("/{page}")
     public String search(String data, @PathVariable("page") int page, Model model){
         model.addAttribute("posts", postsService.search(data, page));
+        model.addAttribute("totaldata", postsService.totaldata(data));
         model.addAttribute("data", data);
         model.addAttribute("page", page);
         return "main";

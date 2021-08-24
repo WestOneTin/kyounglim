@@ -26,10 +26,6 @@ public class PostsService {
     private final PostsRepository postsRepository;
     private final PhotoRepository photoRepository;
 
-    @Transactional(readOnly = true)
-    public Page<Posts> findAll(int page){
-        return postsRepository.findAll(PageRequest.of(page, 10, Sort.by("id").descending()));
-    }
 
     @Transactional
     public List<Posts> search(String data, int page){
@@ -37,13 +33,13 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts getById(Long id){
-        return postsRepository.getById(id);
+    public Integer totaldata(String data){
+        return postsRepository.countByItemContainingOrMaterialContaining(data, data);
     }
 
     @Transactional
-    public Optional<Posts> findByPhotoId(Long id){
-        return postsRepository.findByPhoto(id);
+    public Posts getById(Long id){
+        return postsRepository.getById(id);
     }
 
     @Transactional

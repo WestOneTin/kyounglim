@@ -30,7 +30,10 @@ public class WebRestController {
         return postsService.search(data, page);
     }
 
-
+    @GetMapping("/totaldata/{data}")
+    public Integer totaldata(@PathVariable("data") String data){
+        return postsService.totaldata(data);
+    }
     @PostMapping("/save")
     public Long savePost(@RequestParam(required = false, name = "file") MultipartFile file, PostSaveRequestDto postdto) throws Exception{
         Photo photo = fileHandler.parseFileInfo(file);

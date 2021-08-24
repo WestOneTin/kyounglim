@@ -94,10 +94,9 @@
                                 <input type="hidden" name="id" value="{{id}}">
                                 <td style="vertical-align: middle;">{{id}}</td>
                                 {{#if photo '!=' null }}
-                                    <td style="display: none">{{photo.filename}}</td>
                                     <td style="vertical-align: middle;"><img src="img/{{photo.filename}}" class="img-responsive img-rounded center-block" width="100"></td>
                                 {{else}}
-                                    <td id="{{id}}" style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
+                                    <td style="vertical-align: middle;"><img src="img/main_img.jpg" class="img-responsive img-rounded center-block" width="100"></td>
 
                                 {{/if}}
                                 <td style="vertical-align: middle;">{{item}}</td>
@@ -119,7 +118,7 @@
                 </table>
                 <div class="col-xs-12 placeholder text-center">
                     <nav>
-                        <input type="hidden" id="totalPages" value="{{posts.totalPages}}">
+                        <input type="hidden" id="totaldata" value="{{totaldata}}">
                         <ul class="pagination" id="pagination" >
                             <!-- for문으로 생성-->
                         </ul>
