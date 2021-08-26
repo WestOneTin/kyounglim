@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @AllArgsConstructor
@@ -27,20 +30,23 @@ public class PostsService {
     private final PhotoRepository photoRepository;
 
 
-    @Transactional
-    public List<Posts> search(String data, int page) {
-        return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending()));
+    @Transactional(readOnly = true)
+    public List<PostsGetResponseDto> search(String data, int page) {
+        return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending())).map(PostsGetResponseDto::new)
+                .collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
+    public PostsGetResponseDto getById(Long id) {
+        Posts post = postsRepository.getById(id);
+        return new PostsGetResponseDto(post);
+    }
+
+    @Transactional(readOnly = true)
     public Integer totaldata(String data) {
         return postsRepository.countByItemContainingOrMaterialContaining(data, data);
     }
 
-    @Transactional
-    public Posts getById(Long id) {
-        return postsRepository.getById(id);
-    }
 
     @Transactional
     public Long save(Posts posts) {

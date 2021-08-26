@@ -2,7 +2,9 @@ package com.kyounglim.www.dto.posts;
 
 import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.posts.Posts;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +23,7 @@ public class PostsGetResponseDto {
     private int stock;
     private String content;
     private String modifiedDate;
-    private Photo files;
+    private Photo photo;
 
     public PostsGetResponseDto(Posts entity) {
         id = entity.getId();
@@ -29,6 +31,7 @@ public class PostsGetResponseDto {
         material = entity.getMaterial();
         stock = entity.getStock();
         content = entity.getContent();
+        photo = entity.getPhoto();
         modifiedDate = toStringDateTime(entity.getModifiedDate());
     }
 
@@ -36,7 +39,7 @@ public class PostsGetResponseDto {
      * Java 8 버전
      */
     private String toStringDateTime(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy년MM월dd일 HH시mm분ss초");
         return Optional.ofNullable(localDateTime)
                 .map(formatter::format)
                 .orElse("");

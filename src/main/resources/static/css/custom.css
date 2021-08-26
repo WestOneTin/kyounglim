@@ -1,6 +1,15 @@
 #post_li{
     font-size: 20px;
 }
+#post_ul{
+    list-style: none
+}
 #post_content{
     padding: 20px;
+}
+#post_first_row{
+    margin-bottom: 30px;
+}
+#post_right{
+    padding-top: 15px;
 }

@@ -4,6 +4,7 @@ import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.posts.Posts;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
+import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import com.kyounglim.www.service.PhotoService;
 import com.kyounglim.www.service.PostsService;
 import com.kyounglim.www.util.FileHandler;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 
 @RestController
@@ -26,7 +28,7 @@ public class WebRestController {
     private FileHandler fileHandler;
 
     @GetMapping("/search/{page}")
-    public List<Posts> search(String data, @PathVariable("page") int page) {
+    public List<PostsGetResponseDto> search(String data, @PathVariable("page") int page) {
         return postsService.search(data, page);
     }
 
@@ -44,7 +46,7 @@ public class WebRestController {
 
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") Long id, @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
-        Posts post = postsService.getById(id);
+        PostsGetResponseDto post = postsService.getById(id);
         Photo photo = null;
         //Optional<Photo> dbPhoto = photoService.findById(id); // DB에 파일 가져오기
         // DB에 파일이 저장 되어 있는지

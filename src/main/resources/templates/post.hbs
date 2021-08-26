@@ -55,23 +55,23 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10 main">
-            <div class="row">
+            <div class="row" id="post_first_row">
                 {{#with post}}
                     <div class="col-md-6" id="post_content">
                         {{#if photo '!=' null }}
                             <span style="vertical-align: middle;"><img src="../img/{{photo.filename}}"
                                                                        class="img-responsive img-rounded center-block"
-                                                                       width="300"></span>
+                                                                       width="350"></span>
                         {{else}}
                             <span style="vertical-align: middle;"><img src="../img/main_img.jpg"
                                                                        class="img-responsive img-rounded center-block"
-                                                                       width="300"></span>
+                                                                       width="350"></span>
 
                         {{/if}}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="post_right">
                         <div>
-                            <ul style="list-style: none">
+                            <ul id="post_ul">
                                 <li id="post_li">모델 : {{item}}</li>
                                 <li id="post_li">소재 : {{material}}</li>
                                 <li id="post_li">재고 : {{stock}}</li>

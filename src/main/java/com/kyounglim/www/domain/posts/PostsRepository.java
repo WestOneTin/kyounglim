@@ -1,5 +1,6 @@
 package com.kyounglim.www.domain.posts;
 
+import com.kyounglim.www.dto.posts.PostsGetResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +23,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "LEFT OUTER JOIN FETCH p.photo f " +
             "WHERE p.item LIKE %:data% OR p.material LIKE %:data% ") //?1 는 첫번째 parameter 자리에 있는것을 넣겠다는 뜻
     //select * from posts p left join photo t on p.photo_id = t.photo_id
-    List<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
+    Stream<Posts> findAllByItemOrMaterial(String data, Pageable pageable);
+
+    Posts getById(Long id);
 
     Integer countByItemContainingOrMaterialContaining(String data1, String data2);
 
