@@ -20,7 +20,7 @@ public class WebController {
     private PostsService postsService;
 
     @GetMapping("/{page}")
-    public String search(@RequestBody String data, @PathVariable("page") int page, Model model) {
+    public String search(String data, @PathVariable("page") int page, Model model) {
         model.addAttribute("posts", postsService.search(data, page));
         model.addAttribute("totaldata", postsService.totaldata(data));
         model.addAttribute("data", data);

@@ -16,6 +16,8 @@
     <!-- Custom styles for this template -->
     <link href="../css/dashboard.css" rel="stylesheet">
 
+    <link href="../css/custom.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="../js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -53,46 +55,39 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10 main">
-            <div class="table-responsive">
-                <table class="table table-hover table-condensed text-center">
-                    <thead>
-                    <tr>
-                        <th class="text-center">번호</th>
-                        <th class="text-center">사진</th>
-                        <th class="text-center">모델명</th>
-                        <th class="text-center">소재</th>
-                        <th class="text-center">재고량</th>
-                        <th class="text-center">비고</th>
-                        <th class="text-center">시간</th>
-                        <th class="text-center">수정/삭제</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{#with post}}
-                        <tr>
-                            <td style="vertical-align: middle;">{{id}}</td>
-                            {{#if files.filename '!=' null }}
-                                <td style="vertical-align: middle;"><img src="img/{{files.filename}}"
-                                                                         class="img-responsive img-rounded center-block"
-                                                                         width="100"></td>
-                            {{else}}
-                                <td style="vertical-align: middle;"><img src="img/main_img.jpg"
-                                                                         class="img-responsive img-rounded center-block"
-                                                                         width="100"></td>
-                            {{/if}}
-                            <td style="vertical-align: middle;">{{item}}</td>
-                            <td style="vertical-align: middle;">{{material}}</td>
-                            <td style="vertical-align: middle;">{{stock}}</td>
-                            <td style="vertical-align: middle;">{{content}}</td>
-                            <td style="vertical-align: middle;">{{modifiedDate}}</td>
-                            <td style="vertical-align: middle;">
-                                <button type="button" class="btn btn-warning">수정</button>
-                                <button type="button" class="btn btn-danger">삭제</button>
-                            </td>
-                        </tr>
-                    {{/with}}
-                    </tbody>
-                </table>
+            <div class="row">
+                {{#with post}}
+                    <div class="col-md-6" id="post_content">
+                        {{#if photo '!=' null }}
+                            <span style="vertical-align: middle;"><img src="../img/{{photo.filename}}"
+                                                                       class="img-responsive img-rounded center-block"
+                                                                       width="300"></span>
+                        {{else}}
+                            <span style="vertical-align: middle;"><img src="../img/main_img.jpg"
+                                                                       class="img-responsive img-rounded center-block"
+                                                                       width="300"></span>
+
+                        {{/if}}
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <ul style="list-style: none">
+                                <li id="post_li">모델 : {{item}}</li>
+                                <li id="post_li">소재 : {{material}}</li>
+                                <li id="post_li">재고 : {{stock}}</li>
+                                <li id="post_li">작성시간 : {{modifiedDate}}</li>
+                                <li id="post_li">비고</li>
+                                <span>{{content}}</span>
+                            </ul>
+                        </div>
+                    </div>
+                {{/with}}
+            </div>
+            <div class="row">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-warning">수정</button>
+                    <button type="button" class="btn btn-danger">삭제</button>
+                </div>
             </div>
         </div>
     </div>

@@ -12,7 +12,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
       use-new-id-generator-mappings: false # File and Posts 시퀀스가 다른 번호로 올라가서 같은 번호로 올라가게 하기 위해 작성
-
   h2:
     console:
       enabled: true
