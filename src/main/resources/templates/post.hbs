@@ -33,7 +33,7 @@
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="col-lg-offset-1 col-lg-10 container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
@@ -57,7 +57,7 @@
         <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10 main">
             <div class="row" id="post_first_row">
                 {{#with post}}
-                    <div class="col-md-6" id="post_content">
+                    <div class="col-md-6" id="post_contents">
                         {{#if photo '!=' null }}
                             <span style="vertical-align: middle;"><img src="../img/{{photo.filename}}"
                                                                        class="img-responsive img-rounded center-block"
@@ -77,13 +77,13 @@
                                 <li id="post_li">재고 : {{stock}}</li>
                                 <li id="post_li">작성시간 : {{modifiedDate}}</li>
                                 <li id="post_li">비고</li>
-                                <span>{{content}}</span>
+                                <span id="post_content">{{content}}</span>
                             </ul>
                         </div>
                     </div>
                 {{/with}}
             </div>
-            <div class="row">
+            <div class="row" style="padding-right: 20px">
                 <div class="pull-right">
                     <button type="button" class="btn btn-warning">수정</button>
                     <button type="button" class="btn btn-danger">삭제</button>
@@ -106,3 +106,4 @@
 <script src="../js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
+

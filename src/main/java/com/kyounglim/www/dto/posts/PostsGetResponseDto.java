@@ -39,7 +39,7 @@ public class PostsGetResponseDto {
      * Java 8 버전
      */
     private String toStringDateTime(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy년MM월dd일 HH시mm분ss초");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd- HH:mm");
         return Optional.ofNullable(localDateTime)
                 .map(formatter::format)
                 .orElse("");

@@ -2,7 +2,7 @@ let data = $('#get-data').val(); // 검색한 data
 let currentPage = $('#get-page').val(); // 현재페이지 pageabl이 0 부터 시작 됨
 let totalData = $('#totaldata').val(); // 게시글 전체 갯수
 let dataPerPage = 10;
-let pageCount = 5;
+let pageCount = 10;
 let totalPage;
 
 $(document).ready(function () {
@@ -44,16 +44,17 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 
     //페이징 번호 표시
     for (var i = first; i <= last; i++) {
-        if (currentPage == i) {
-            /*pageHtml +=
-                "<li><a href='/#?data" + data + "' id='" + i + "'>" + i + "</a></li>";
-        } else {
-            pageHtml += "<li><a href='/#?data=" + data + "' id='" + i + "'>" + i + "</a></li>";*/
+        if(data=="") {
+            i == currentPage ? pageHtml += '<li><a href="/' + (i - 1) + '">' + i + '</a></li>' : pageHtml += '<li><a href="/' + (i - 1) + '">' + i + '</a></li>';
+        }else{
+            i == currentPage ? pageHtml += '<li><a href="/' + (i - 1) + '?data=' + data + '">' + i + '</a></li>' : pageHtml += '<li><a href="/' + (i - 1) + '?data=' + data + '">' + i + '</a></li>';
+        }
+        /*if (currentPage == i) {
             pageHtml +=
                 '<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>';
         } else {
             pageHtml += '<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>';
-        }
+        }*/
     }
 
     if (last < totalPage) {
@@ -67,8 +68,8 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
         let $id = $(this).attr("id");
         selectedPage = $(this).text();
 
-        if ($id == "next") selectedPage = next; console.log("selectedPage next : " + selectedPage);
-        if ($id == "prev") selectedPage = prev; console.log("selectedPage prev : " + selectedPage);
+        if ($id == "next") selectedPage = next;
+        if ($id == "prev") selectedPage = prev;
 
         //전역변수에 선택한 페이지 번호를 담는다...
         globalCurrentPage = selectedPage;
@@ -77,33 +78,3 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
         //글 목록 표시 재호출
     });
 }
-
-
-/*
-
-function pageAlgo(bottomSize, cursor){
-    let firstBottomNumber = cursor % bottomSize + 1 // 하단 처음
-    let lastBottomNumber = cursor % bottomSize + bottomSize; // 하단 마지막
-
-    if(lastBottomNumber > total) lastBottomNumber = total;  //총 갯수보다 큰 경우 방지
-
-    return {
-        firstBottomNumber,
-        lastBottomNumber,
-        total,
-        bottomSize,
-        cursor
-    }
-}
-
-//280개의 데이터, 하단에는 20개씩, 1개화면에는 10개, 지금 나의페이지는 21
-let info = pageAlgo(5, cursor)
-
-//실제 출력하는 방법 샘플
-for(let i = info.firstBottomNumber ; i <= info.lastBottomNumber; i++){
-    i == info.cursor ? $('<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>').appendTo('#pagination') : $('<li><a href="/' + (i-1) + '?data=' + data + '">' + i + '</a></li>').appendTo('#pagination');
-};
-*/
-
-
-

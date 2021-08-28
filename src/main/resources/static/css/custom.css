@@ -1,10 +1,11 @@
 #post_li{
-    font-size: 20px;
+    font-size: 15px;
 }
 #post_ul{
-    list-style: none
+    list-style: none;
+    padding-inline-start: 0px;
 }
-#post_content{
+#posts_contents{
     padding: 20px;
 }
 #post_first_row{
@@ -12,4 +13,20 @@
 }
 #post_right{
     padding-top: 15px;
+}
+#post_content_title{
+    width: 300px;
+}
+#posts_contents{
+    width: 300px;
+    word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#post_content{
+    width: 300px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

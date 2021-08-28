@@ -20,7 +20,10 @@ public class WebController {
     private PostsService postsService;
 
     @GetMapping("/{page}")
-    public String search(@PathVariable("page") int page, String data, Model model) {
+    public String search(@PathVariable("page") int page, @RequestParam(required = false) String data, Model model) {
+        if(data == null){
+            data = "";
+        }
         model.addAttribute("posts", postsService.search(data, page));
         model.addAttribute("totaldata", postsService.totaldata(data));
         model.addAttribute("data", data);
@@ -30,7 +33,7 @@ public class WebController {
 
     @GetMapping("/")
     public String main() {
-        return "redirect:/0?data=";
+        return "redirect:/0";
     }
 
     @GetMapping("/create")
