@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,8 +33,7 @@ public class PostsService {
 
     @Transactional(readOnly = true)
     public List<PostsGetResponseDto> search(String data, int page) {
-        return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending())).map(PostsGetResponseDto::new)
-                .collect(Collectors.toList());
+        return postsRepository.findAllByItemOrMaterial(data, PageRequest.of(page, 10, Sort.by("id").descending())).map(PostsGetResponseDto::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -67,6 +67,10 @@ public class PostsService {
         get_post.ifPresent(post -> {
             postsRepository.deleteById(post.getId());
         });
+    }
+
+    @Transactional
+    public void deleteByPhotoId(Long id){
     }
 }
 

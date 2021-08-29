@@ -6,6 +6,7 @@ import com.kyounglim.www.dto.photo.PhotoSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -25,8 +26,8 @@ public class PhotoService {
     }
 
     @Transactional
-    public Long deletePhoto(Long id) {
-        return photoRepository.deletePhotoById(id);
+    public void deletePhoto(Long id) {
+        photoRepository.deleteById(id);
     }
 
 }

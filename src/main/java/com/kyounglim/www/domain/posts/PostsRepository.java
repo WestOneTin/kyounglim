@@ -31,5 +31,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     void deleteById(Long id);
 
+    void deleteByPhotoId(Long id);
 
 }

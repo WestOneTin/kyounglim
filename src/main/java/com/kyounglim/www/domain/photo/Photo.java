@@ -1,9 +1,12 @@
 package com.kyounglim.www.domain.photo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kyounglim.www.domain.posts.Posts;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -24,15 +27,17 @@ public class Photo {
     @Column
     private String filePath;
 
-    /*@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "photo")
-    @JoinColumn(name="POSTS_ID")
-    private Posts posts;*/
+    @OneToOne(mappedBy = "photo", orphanRemoval = true)
+    @JsonIgnore
+    private Posts posts;
+
 
     @Builder
-    public Photo(String origFilename, String filename, String filePath) {
+    public Photo(String origFilename, String filename, String filePath, Posts posts) {
         this.origFilename = origFilename;
         this.filename = filename;
         this.filePath = filePath;
+        this.posts = posts;
     }
 
 }

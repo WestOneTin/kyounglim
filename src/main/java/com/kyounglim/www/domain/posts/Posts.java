@@ -1,7 +1,8 @@
 package com.kyounglim.www.domain.posts;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kyounglim.www.domain.BaseTimeEntity;
 import com.kyounglim.www.domain.photo.Photo;
 import lombok.AccessLevel;
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @Getter //Entity 에는 Getter 만 생성 Setter 대신 생성자 or Builder로 주입
 @Entity // Table과 링크될 클래스임을 나타냄
 @DynamicUpdate // 변경 필드만 반영 될 수 있도록 해줌
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 양방향에서 무한 재귀를 차단하기 위해 아래에 @JsonIgnore 이게 더 정확하게 작동
 public class Posts extends BaseTimeEntity {
 
     @Id // 해당테이블의 PK 필드를 나타냄
@@ -24,7 +26,7 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "POSTS_ID")
     private Long id;
 
-    @Column(name = "ITEM", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "ITEM",  columnDefinition = "TEXT", nullable = false)
     private String item;
 
     @Column(name = "MATERIAL", columnDefinition = "TEXT", nullable = false)
@@ -36,10 +38,10 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩
-    //@JsonIgnore // FetchType.LAZY JSON response에서 Files를 제외한다는 뜻 // 즉 Posts  데이터를 가져올때 Files 는 제외
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩 // mappedBy가 있으면 대상테이블이다 반대편이 주인이다 (Photo가 주인)
     @JoinColumn(name="PHOTO_ID")
     private Photo photo;
+
 
     @Builder
     public Posts(String item, String material, int stock, String content, Photo photo) {
@@ -49,6 +51,7 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
         this.photo = photo;
     }
+
 
     public void update(Posts posts){
         this.item = posts.getItem();
