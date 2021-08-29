@@ -70,7 +70,9 @@ public class PostsService {
     }
 
     @Transactional
-    public void deleteByPhotoId(Long id){
+    public void deleteByPhotoId(Long id,EntityManager em){
+        Photo photo = em.find(Photo.class, id);
+        em.remove(photo);
     }
 }
 

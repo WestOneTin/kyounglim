@@ -23,23 +23,23 @@ public class Posts extends BaseTimeEntity {
 
     @Id // 해당테이블의 PK 필드를 나타냄
     @GeneratedValue(strategy = GenerationType.IDENTITY) // PK 의 생성 규칙을 나타냄 기본값은 AUTO, MySQL의 auto_increment와 같이 자동증가 하는 정수형 값이 된다.
-    @Column(name = "POSTS_ID")
+    @Column(name = "posts_id")
     private Long id;
 
-    @Column(name = "ITEM",  columnDefinition = "TEXT", nullable = false)
+    @Column(name = "item",  columnDefinition = "TEXT", nullable = false)
     private String item;
 
-    @Column(name = "MATERIAL", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "material", columnDefinition = "TEXT", nullable = false)
     private String material;
 
-    @Column(name = "STOCK")
+    @Column(name = "stock")
     private int stock;
 
-    @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩 // mappedBy가 있으면 대상테이블이다 반대편이 주인이다 (Photo가 주인)
-    @JoinColumn(name="PHOTO_ID")
+    @JoinColumn(name="photo_id")
     private Photo photo;
 
 

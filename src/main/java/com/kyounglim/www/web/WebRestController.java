@@ -25,6 +25,7 @@ public class WebRestController {
     private PostsService postsService;
     private PhotoService photoService;
     private FileHandler fileHandler;
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("kyounglim");
 
     @GetMapping("/search/{page}")
     public List<PostsGetResponseDto> search(String data, @PathVariable("page") int page) {
@@ -80,7 +81,8 @@ public class WebRestController {
 
     @DeleteMapping("/delphoto/{id}")
     public void delete(@PathVariable("id") Long id){
-        postsService.deleteByPhotoId(id);
+        EntityManager em = emf.createEntityManager();
+        postsService.deleteByPhotoId(id, em);
     }
 
 }

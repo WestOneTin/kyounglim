@@ -15,16 +15,16 @@ public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PHOTO_ID")
+    @Column(name = "photo_id")
     private Long id;
 
-    @Column
+    @Column(name = "origfilename")
     private String origFilename;
 
-    @Column
+    @Column(name = "filename")
     private String filename;
 
-    @Column
+    @Column(name = "filepath")
     private String filePath;
 
     @OneToOne(mappedBy = "photo", orphanRemoval = true)
