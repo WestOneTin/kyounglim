@@ -9,6 +9,7 @@ import com.kyounglim.www.service.PhotoService;
 import com.kyounglim.www.service.PostsService;
 import com.kyounglim.www.util.FileHandler;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,13 +39,12 @@ public class WebRestController {
     }
 
     @PostMapping("/save")
-    public Long savePost(@RequestParam(required = false, name = "file") MultipartFile file, PostSaveRequestDto postdto) throws Exception {
-        Photo photo = fileHandler.parseFileInfo(file);
-        Posts posts = Posts.builder().item(postdto.getItem()).material(postdto.getMaterial()).stock(postdto.getStock()).content(postdto.getContent()).photo(photo).build();
-        return postsService.save(posts);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long create(@RequestParam(required = false, value = "image") List<MultipartFile> files, PostSaveRequestDto requestDto) throws Exception {
+        return postsService.save(requestDto, files);
     }
 
-    @PutMapping("/update/{id}")
+    /*@PutMapping("/update/{id}")
     public void update(@PathVariable("id") Long id, @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
         PostsGetResponseDto post = postsService.getById(id);
         Long photoId = post.getPhoto().getId();
@@ -72,7 +72,7 @@ public class WebRestController {
         }
         System.out.println("photo : " + photo.getFilename());
         postsService.update(id, dto, photo);
-    }
+    }*/
 
     @DeleteMapping("/del/{id}")
     public void deletePost(@PathVariable("id") Long id) {
@@ -81,8 +81,7 @@ public class WebRestController {
 
     @DeleteMapping("/delphoto/{id}")
     public void delete(@PathVariable("id") Long id){
-        EntityManager em = emf.createEntityManager();
-        postsService.deleteByPhotoId(id, em);
+        postsService.deleteByPhotoId(id);
     }
 
 }

@@ -9,6 +9,7 @@ import com.kyounglim.www.dto.photo.PhotoSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostSaveRequestDto;
 import com.kyounglim.www.dto.posts.PostUpdateResponseDto;
 import com.kyounglim.www.dto.posts.PostsGetResponseDto;
+import com.kyounglim.www.util.FileHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class PostsService {
 
     private final PostsRepository postsRepository;
     private final PhotoRepository photoRepository;
+    private final FileHandler fileHandler;
 
 
     @Transactional(readOnly = true)
@@ -49,15 +51,25 @@ public class PostsService {
 
 
     @Transactional
-    public Long save(Posts posts) {
-        return postsRepository.save(posts).getId();
+    public Long save(PostSaveRequestDto requestDto, List<MultipartFile> files) throws Exception {
+        Posts posts = new Posts(requestDto.getItem(), requestDto.getMaterial(), requestDto.getStock(), requestDto.getContent());
+
+        List<Photo> photoList = fileHandler.parseFileInfo(files);
+
+        // 파일이 존재할 때에만 처리
+        if(!photoList.isEmpty()){
+            for(Photo photo : photoList) {
+                // 파일을 DB에 저장
+                posts.addPhoto(photoRepository.save(photo));
+            }
+        }
+       return postsRepository.save(posts).getId();
     }
 
     @Transactional
     public Posts update(Long id, PostUpdateResponseDto dto, Photo photo) {
         Posts post = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        Posts setPost = Posts.builder().item(dto.getItem()).material(dto.getMaterial()).stock(dto.getStock()).content(dto.getContent()).photo(photo).build();
-        post.update(setPost);
+        post.update(dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
         return post;
     }
 
@@ -70,9 +82,12 @@ public class PostsService {
     }
 
     @Transactional
-    public void deleteByPhotoId(Long id,EntityManager em){
-        Photo photo = em.find(Photo.class, id);
-        em.remove(photo);
+    public void deleteByPhotoId(Long id){
+        Posts post = postsRepository.getById(id);
+        List<Photo> dbPhotoList = photoRepository.findAllByPostsId(id);
+        for (Photo dbPhoto : dbPhotoList){
+            photoRepository.deleteById(dbPhoto.getId());
+        }
     }
 }
 

@@ -28,7 +28,6 @@ public class PostSaveRequestDto {
                 .material(material)
                 .stock(stock)
                 .content(content)
-                .photo(photo)
                 .build();
     }
 

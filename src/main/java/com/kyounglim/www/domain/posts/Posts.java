@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본생성자 자동추가 // (기본생성자의 접근권한을 protected로 제한)
@@ -38,26 +40,32 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩 // mappedBy가 있으면 대상테이블이다 반대편이 주인이다 (Photo가 주인)
-    @JoinColumn(name="photo_id")
-    private Photo photo;
+    //@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩 // mappedBy가 있으면 대상테이블이다 반대편이 주인이다 (Photo가 주인)
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private Set<Photo> photo = new HashSet<>();
 
+    public void addPhoto(Photo photo){
+        this.photo.add(photo);
+
+        // 게시글에 파일이 저장되어 있지 않은경우
+        if(photo.getPosts() != this)
+            // 파일 저장
+            photo.setPosts(this);
+    }
 
     @Builder
-    public Posts(String item, String material, int stock, String content, Photo photo) {
+    public Posts(String item, String material, int stock, String content) {
         this.item = item;
         this.material = material;
         this.stock = stock;
         this.content = content;
-        this.photo = photo;
     }
 
 
-    public void update(Posts posts){
-        this.item = posts.getItem();
-        this.material = posts.getMaterial();
-        this.stock = posts.getStock();
-        this.content = posts.getContent();
-        this.photo = posts.getPhoto();
+    public void update(String item, String material, int stock, String content){
+        this.item = item;
+        this.material = material;
+        this.stock = stock;
+        this.content = content;
     }
 }

@@ -80,7 +80,7 @@
                     <div class="form-group" id="test1234">
                         <label for="InputFile">사진 업로드</label>
                         {{#if post '!=' null}}<input type="hidden" name="file_id" value="{{post.photo}}"> {{/if}}
-                        <input name="file" type="file" id="file" accept="image/*" capture="camera">
+                        <input name="image" type="file" id="file" accept="image/*" capture="camera">
                     </div>
                 </form>
                 <div class="btn pull-right">

@@ -21,23 +21,22 @@ public class Photo {
     @Column(name = "origfilename")
     private String origFilename;
 
-    @Column(name = "filename")
-    private String filename;
-
     @Column(name = "filepath")
     private String filePath;
 
-    @OneToOne(mappedBy = "photo", orphanRemoval = true)
-    @JsonIgnore
+    //@OneToOne(mappedBy = "photo", orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name="posts_id")
     private Posts posts;
 
+    public void setPosts(Posts posts) {
+        this.posts = posts;
+    }
 
     @Builder
-    public Photo(String origFilename, String filename, String filePath, Posts posts) {
+    public Photo(String origFilename, String filePath) {
         this.origFilename = origFilename;
-        this.filename = filename;
         this.filePath = filePath;
-        this.posts = posts;
     }
 
 }

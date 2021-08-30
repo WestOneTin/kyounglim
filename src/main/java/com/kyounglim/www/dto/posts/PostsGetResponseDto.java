@@ -31,7 +31,6 @@ public class PostsGetResponseDto {
         material = entity.getMaterial();
         stock = entity.getStock();
         content = entity.getContent();
-        photo = entity.getPhoto();
         modifiedDate = toStringDateTime(entity.getModifiedDate());
     }
 
