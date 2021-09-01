@@ -25,7 +25,7 @@ public class Photo {
     private String filePath;
 
     //@OneToOne(mappedBy = "photo", orphanRemoval = true)
-    @ManyToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name="posts_id")
     private Posts posts;
 

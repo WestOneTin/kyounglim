@@ -41,12 +41,10 @@ public class Posts extends BaseTimeEntity {
     private String content;
 
     //@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true) //EAGER 즉시로딩 // LAZY 지연로딩 // mappedBy가 있으면 대상테이블이다 반대편이 주인이다 (Photo가 주인)
-    @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-    private Set<Photo> photo = new HashSet<>();
+    @OneToOne(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private Photo photo;
 
     public void addPhoto(Photo photo){
-        this.photo.add(photo);
-
         // 게시글에 파일이 저장되어 있지 않은경우
         if(photo.getPosts() != this)
             // 파일 저장

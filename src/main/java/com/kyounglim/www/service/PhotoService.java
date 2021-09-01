@@ -2,6 +2,7 @@ package com.kyounglim.www.service;
 
 import com.kyounglim.www.domain.photo.Photo;
 import com.kyounglim.www.domain.photo.PhotoRepository;
+import com.kyounglim.www.dto.photo.PhotoGetResponseDto;
 import com.kyounglim.www.dto.photo.PhotoSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,10 @@ public class PhotoService {
     }
 
     @Transactional
-    public Optional<Photo> findById(Long id) {
-        return photoRepository.findById(id);
+    public PhotoGetResponseDto findById(Long id) {
+        Photo photo =  photoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        PhotoGetResponseDto dto = new PhotoGetResponseDto(photo);
+        return dto;
     }
 
     @Transactional

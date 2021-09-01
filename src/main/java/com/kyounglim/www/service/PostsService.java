@@ -51,23 +51,17 @@ public class PostsService {
 
 
     @Transactional
-    public Long save(PostSaveRequestDto requestDto, List<MultipartFile> files) throws Exception {
+    public Long save(PostSaveRequestDto requestDto, Photo photo) throws Exception {
         Posts posts = new Posts(requestDto.getItem(), requestDto.getMaterial(), requestDto.getStock(), requestDto.getContent());
-
-        List<Photo> photoList = fileHandler.parseFileInfo(files);
-
-        // 파일이 존재할 때에만 처리
-        if(!photoList.isEmpty()){
-            for(Photo photo : photoList) {
-                // 파일을 DB에 저장
-                posts.addPhoto(photoRepository.save(photo));
-            }
+        if(photo!=null) {
+            posts.addPhoto(photo);
+            photoRepository.save(photo);
         }
        return postsRepository.save(posts).getId();
     }
 
     @Transactional
-    public Posts update(Long id, PostUpdateResponseDto dto, Photo photo) {
+    public Posts update(Long id, PostUpdateResponseDto dto) {
         Posts post = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         post.update(dto.getItem(), dto.getMaterial(), dto.getStock(), dto.getContent());
         return post;
@@ -81,13 +75,12 @@ public class PostsService {
         });
     }
 
+
+    // 테스트용
     @Transactional
     public void deleteByPhotoId(Long id){
-        Posts post = postsRepository.getById(id);
-        List<Photo> dbPhotoList = photoRepository.findAllByPostsId(id);
-        for (Photo dbPhoto : dbPhotoList){
-            photoRepository.deleteById(dbPhoto.getId());
-        }
+        Posts post = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        photoRepository.deleteById(post.getPhoto().getId());
     }
 }
 
