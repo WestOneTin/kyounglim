@@ -27,7 +27,6 @@ public class WebRestController {
     private PostsService postsService;
     private PhotoService photoService;
     private FileHandler fileHandler;
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("kyounglim");
 
     @GetMapping("/search/{page}")
     public List<PostsGetResponseDto> search(String data, @PathVariable("page") int page) {
@@ -48,22 +47,22 @@ public class WebRestController {
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") Long id, @RequestParam(required = false, name = "file") MultipartFile file, PostUpdateResponseDto dto) throws Exception {
         PostsGetResponseDto post = postsService.getById(id);
-        PhotoGetResponseDto photo = photoService.findById(post.getId());
+        Photo photoEntity = null;
         // DB에 파일이 저장 되어 있는지
-        /*if (photo == null) {
+        if (post.getPhoto() == null) { //db 파일이 null 이면
             if (!file.isEmpty()) {
-                photo = fileHandler.parseFileInfo(file);
+                photoEntity = fileHandler.parseFileInfo(file);
             }
         } else { // DB에 하나 이상 있으면
-            if (file.isEmpty()) { // 전달받은 파일이 없다면
-                photoService.deletePhoto(photoId); // DB에 있는 파일 삭제
-                photo = fileHandler.parseFileInfo(file);
+            if (file.isEmpty()) { // 전달받은 파일이 없다면 기존것도 삭제 된것임
+                photoService.deletePhoto(post.getPhoto().getId()); // DB에 있는 파일 삭제
             } else { // 전달된 파일이 존재한다면
-                photo = fileHandler.parseFileInfo(file);
-
+                photoService.deletePhoto(post.getPhoto().getId()); // DB에 있는 파일 삭제
+                photoEntity = fileHandler.parseFileInfo(file);
             }
         }
-        postsService.update(id, dto, photo);*/
+        photoService.saveFile(photoEntity);
+        postsService.update(id, dto);
     }
 
     @DeleteMapping("/del/{id}")

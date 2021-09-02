@@ -17,8 +17,8 @@ public class PhotoService {
     private PhotoRepository photoRepository;
 
     @Transactional
-    public Long saveFile(PhotoSaveRequestDto dto) {
-        return photoRepository.save(dto.toEntity()).getId();
+    public Long saveFile(Photo photo) {
+        return photoRepository.save(photo).getId();
     }
 
     @Transactional
